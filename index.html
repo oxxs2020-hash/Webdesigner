@@ -88,14 +88,14 @@
         linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
       background-size: 64px 64px;
       pointer-events: none;
-      z-index: 0;
+      z-index: -2;
     }
 
     .grain {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 1;
+      z-index: -1;
       opacity: 0.03;
       background: radial-gradient(#fff 10%, transparent 15%), #000;
       background-size: 3px 3px;
@@ -221,7 +221,7 @@
       display: flex;
       align-items: center;
       padding: 0 7vw;
-      z-index: 2;
+      
       background: linear-gradient(to right, rgba(17, 17, 22, 0.9) 0%, rgba(17, 17, 22, 0.6) 45%, transparent 100%), url('oscar_profile.jpg') no-repeat right bottom;
       background-size: contain;
     }
@@ -334,7 +334,7 @@
       border-bottom: 1px solid var(--border);
       padding: 1.5rem 0;
       background: rgba(255, 255, 255, 0.01);
-      z-index: 2;
+      
     }
 
     .marquee-track {
@@ -371,7 +371,7 @@
     .bento-section {
       position: relative;
       padding: 2rem 7vw 10rem 7vw;
-      z-index: 2;
+      
     }
 
     .section-header {
@@ -475,7 +475,7 @@
     .intake-section {
       position: relative;
       padding: 8rem 7vw 12rem 7vw;
-      z-index: 2;
+      
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -569,7 +569,7 @@
     .about-section {
       position: relative;
       padding: 8rem 7vw 2rem 7vw;
-      z-index: 2;
+      
       background: rgba(255, 255, 255, 0.01);
       border-top: 1px solid var(--border);
     }
@@ -606,7 +606,7 @@
       height: auto;
       display: block;
       position: relative;
-      z-index: 2;
+      
       filter: brightness(1.05);
       transition: all 0.4s ease;
     }
@@ -651,44 +651,40 @@
       }
     }
 
-        .holographic-overlay {
+            .holographic-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
       z-index: 9999;
-      background-color: rgba(0, 150, 255, 0.05);
+      background-color: rgba(0, 150, 255, 0.03);
       background-image: 
         repeating-linear-gradient(90deg, 
           transparent, 
-          transparent 50px, 
-          rgba(0, 240, 255, 0.3) 50px, 
-          rgba(0, 240, 255, 0.3) 51px,
-          transparent 51px,
-          transparent 120px,
-          rgba(255, 255, 255, 0.3) 120px, 
-          rgba(255, 255, 255, 0.3) 121px,
-          transparent 121px,
-          transparent 180px,
-          rgba(100, 255, 150, 0.3) 180px, 
-          rgba(100, 255, 150, 0.3) 182px,
-          transparent 182px,
-          transparent 260px,
-          rgba(200, 255, 255, 0.3) 260px, 
-          rgba(200, 255, 255, 0.3) 261px
+          transparent 20px, 
+          rgba(0, 240, 255, 0.2) 20px, 
+          rgba(0, 240, 255, 0.2) 21px,
+          transparent 21px,
+          transparent 80px,
+          rgba(255, 255, 255, 0.2) 80px, 
+          rgba(255, 255, 255, 0.2) 82px,
+          transparent 82px,
+          transparent 140px,
+          rgba(100, 255, 150, 0.15) 140px, 
+          rgba(100, 255, 150, 0.15) 141px,
+          transparent 141px,
+          transparent 210px,
+          rgba(200, 255, 255, 0.2) 210px, 
+          rgba(200, 255, 255, 0.2) 213px
         ),
         repeating-linear-gradient(0deg, 
           transparent, 
-          transparent 50px, 
-          rgba(0, 240, 255, 0.2) 50px, 
-          rgba(0, 240, 255, 0.2) 51px,
-          transparent 51px,
-          transparent 150px,
-          rgba(255, 255, 255, 0.2) 150px,
-          rgba(255, 255, 255, 0.2) 151px
+          transparent 2px, 
+          rgba(0, 240, 255, 0.05) 2px, 
+          rgba(0, 240, 255, 0.05) 3px
         ),
-        radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(150, 255, 255, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 50% 90%, rgba(100, 255, 150, 0.1) 0%, transparent 30%);
+        radial-gradient(circle at 15% 25%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(150, 255, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 50% 85%, rgba(100, 255, 150, 0.08) 0%, transparent 30%);
       mix-blend-mode: screen;
       animation: holoFlicker 10s infinite alternate;
     }
