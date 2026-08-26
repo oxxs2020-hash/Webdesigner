@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #040406;
+      --bg: #111116;
       --surface: rgba(255, 255, 255, 0.02);
       --surface-elevated: rgba(255, 255, 255, 0.04);
       --border: rgba(255, 255, 255, 0.08);
@@ -148,10 +148,12 @@
     .lang-switcher {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0 0.5rem;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
-      margin-right: 0.5rem;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .lang-btn {
       background: none;
@@ -220,7 +222,7 @@
       align-items: center;
       padding: 0 7vw;
       z-index: 2;
-      background: linear-gradient(to right, rgba(4, 4, 6, 0.95) 0%, rgba(4, 4, 6, 0.7) 45%, transparent 100%), url('oscar_profile.jpg') no-repeat right bottom;
+      background: linear-gradient(to right, rgba(17, 17, 22, 0.9) 0%, rgba(17, 17, 22, 0.6) 45%, transparent 100%), url('oscar_profile.jpg') no-repeat right bottom;
       background-size: contain;
     }
 
@@ -578,12 +580,12 @@
       display: block;
       position: relative;
       z-index: 2;
-      filter: contrast(1.1) brightness(0.9);
+      filter: brightness(1.05);
       transition: all 0.4s ease;
     }
 
     .about-image-wrapper:hover .about-image {
-      filter: contrast(1.15) brightness(1.1);
+      filter: brightness(1.15);
       transform: scale(1.02);
     }
 
@@ -624,6 +626,14 @@
   </style>
 </head>
 <body>
+  <div style="position: fixed; top: 0; right: 0; padding: 1.5rem 2rem; z-index: 100;">
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('es')">ES</button>
+        <button class="lang-btn" onclick="setLang('de')">DE</button>
+      </div>
+  </div>
+
 
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
@@ -633,11 +643,7 @@
 
   <div class="dock-container">
     <nav class="dock" id="dynamicDock">
-      <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" onclick="setLang('es')">ES</button>
-        <button class="lang-btn" onclick="setLang('de')">DE</button>
-      </div>
+
 
       <a href="#hero" class="dock-item" data-i18n="nav_1">Nexus</a>
       <a href="#architect" class="dock-item" data-i18n="nav_2">Architect</a>
@@ -673,13 +679,11 @@
     <div class="marquee-container">
       <div class="marquee-track">
         <div class="marquee-item"><span data-i18n="mq_1">Custom Web Design</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_2">Futuristic UI/UX</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_3">Fluid Micro-Interactions</span> <span class="dot"></span></div>
+                <div class="marquee-item"><span data-i18n="mq_3">Fluid Micro-Interactions</span> <span class="dot"></span></div>
         <div class="marquee-item"><span data-i18n="mq_4">Website Revamps</span> <span class="dot"></span></div>
         <div class="marquee-item"><span data-i18n="mq_5">Conversion Optimization</span> <span class="dot"></span></div>
         <div class="marquee-item"><span data-i18n="mq_1">Custom Web Design</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_2">Futuristic UI/UX</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_3">Fluid Micro-Interactions</span> <span class="dot"></span></div>
+                <div class="marquee-item"><span data-i18n="mq_3">Fluid Micro-Interactions</span> <span class="dot"></span></div>
         <div class="marquee-item"><span data-i18n="mq_4">Website Revamps</span> <span class="dot"></span></div>
         <div class="marquee-item"><span data-i18n="mq_5">Conversion Optimization</span> <span class="dot"></span></div>
       </div>
@@ -751,8 +755,7 @@
           <button class="pill" onclick="selectPill(this)" data-i18n="pill_1">New Website Build</button>
           <button class="pill" onclick="selectPill(this)" data-i18n="pill_2">Website Upgrade / Revamp</button>
           <button class="pill" onclick="selectPill(this)" data-i18n="pill_3">Performance Optimization</button>
-          <button class="pill" onclick="selectPill(this)" data-i18n="pill_4">UI/UX Overhaul</button>
-        </div>
+                  </div>
 
         <div class="intake-input-wrapper">
           <input type="text" id="intakeInputField" placeholder="Type or select an option above..." data-i18n-placeholder="input_placeholder" autocomplete="off">
@@ -876,8 +879,8 @@
   },
   "hero_desc": {
     "en": "Crafting bespoke websites and upgrading existing platforms with futuristic UI and high-conversion engineering. Built for brands that demand top-tier digital experiences.",
-    "es": "Creando sitios web a medida y actualizando plataformas existentes con UI futurista e ingenier\u00eda de alta conversi\u00f3n. Construido para marcas que exigen experiencias digitales de primer nivel.",
-    "de": "Wir entwickeln ma\u00dfgeschneiderte Websites und aktualisieren bestehende Plattformen mit futuristischer Benutzeroberfl\u00e4che und konversionsstarkem Engineering. Entwickelt f\u00fcr Marken, die erstklassige digitale Erlebnisse fordern."
+    "es": "Dise\u00f1amos sitios web a medida y optimizamos plataformas existentes con interfaces de vanguardia e ingenier\u00eda orientada a la conversi\u00f3n. Creado para marcas que exigen experiencias digitales de \u00e9lite.",
+    "de": "Wir entwickeln ma\u00dfgeschneiderte Websites und transformieren bestehende Plattformen mit modernstem Design und hochkonvertierender Technologie. Ma\u00dfgeschneidert f\u00fcr Marken, die digitale Exzellenz fordern."
   },
   "hero_btn_1": {
     "en": "Start a Project",
@@ -887,7 +890,7 @@
   "hero_btn_2": {
     "en": "View Capabilities",
     "es": "Ver Capacidades",
-    "de": "F\u00e4higkeiten ansehen"
+    "de": "Leistungen ansehen"
   },
   "nav_1": {
     "en": "Nexus",
@@ -927,12 +930,12 @@
   "mq_4": {
     "en": "Website Revamps",
     "es": "Renovaci\u00f3n de Sitios",
-    "de": "Website-\u00dcberarbeitungen"
+    "de": "Website-Relaunches"
   },
   "mq_5": {
     "en": "Conversion Optimization",
     "es": "Optimizaci\u00f3n de Conversi\u00f3n",
-    "de": "Konversionsoptimierung"
+    "de": "Conversion-Optimierung"
   },
   "about_badge": {
     "en": "Chief Architect",
@@ -942,27 +945,27 @@
   "about_desc": {
     "en": "Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web architectures tailored for elite brands and forward-thinking enterprises. By fusing visual fidelity with deep technical optimization, I build platforms that define the digital edge.",
     "es": "Dise\u00f1ador e ingeniero visionario detr\u00e1s de Aura Agency. Especializado en arquitecturas web futuristas y altamente interactivas, dise\u00f1adas para marcas de \u00e9lite y empresas innovadoras. Al fusionar la fidelidad visual con una profunda optimizaci\u00f3n t\u00e9cnica, construyo plataformas que definen la vanguardia digital.",
-    "de": "Vision\u00e4rer Designer und Ingenieur hinter der Aura Agency. Spezialisiert auf hochinteraktive, futuristische Webarchitekturen f\u00fcr Elite-Marken und zukunftsorientierte Unternehmen. Durch die Verschmelzung von visueller Pr\u00e4zision mit tiefer technischer Optimierung baue ich Plattformen, die den digitalen Vorsprung definieren."
+    "de": "Vision\u00e4rer Designer und Ingenieur hinter Aura Agency. Spezialisiert auf hochgradig interaktive, zukunftsweisende Web-Architekturen, ma\u00dfgeschneidert f\u00fcr Elite-Marken und innovative Unternehmen. Indem ich visuelle Perfektion mit tiefgreifender technischer Optimierung vereine, erschaffe ich Plattformen, die digitale Ma\u00dfst\u00e4be setzen."
   },
   "solutions_badge": {
     "en": "Capabilities Array",
     "es": "Matriz de Capacidades",
-    "de": "F\u00e4higkeitsmatrix"
+    "de": "Leistungs\u00fcbersicht"
   },
   "solutions_title": {
     "en": "Engineered with Precision.",
     "es": "Dise\u00f1ado con Precisi\u00f3n.",
-    "de": "Mit Pr\u00e4zision entwickelt."
+    "de": "Mit h\u00f6chster Pr\u00e4zision entwickelt."
   },
   "card1_title": {
     "en": "Elite Web Builds",
     "es": "Construcciones Web de \u00c9lite",
-    "de": "Elite Web-Builds"
+    "de": "Elite Web-Entwicklung"
   },
   "card1_desc": {
     "en": "Building modern websites from the ground up with instant performance, clean code architecture, and striking futuristic visuals.",
     "es": "Construyendo sitios web modernos desde cero con rendimiento instant\u00e1neo, arquitectura de c\u00f3digo limpio y sorprendentes efectos visuales futuristas.",
-    "de": "Aufbau moderner Websites von Grund auf mit sofortiger Leistung, sauberer Code-Architektur und beeindruckenden futuristischen Grafiken."
+    "de": "Entwicklung moderner Websites von Grund auf, mit herausragender Performance, sauberer Code-Architektur und beeindruckender visueller \u00c4sthetik."
   },
   "card1_tag1": {
     "en": "[ SYSTEM ARCHITECTURE ]",
@@ -972,22 +975,22 @@
   "card1_tag2": {
     "en": "NEXT-GEN STACK",
     "es": "STACK DE PR\u00d3XIMA GENERACI\u00d3N",
-    "de": "NEXT-GEN-STACK"
+    "de": "NEXT-GEN STACK"
   },
   "card2_title": {
     "en": "Next-Level Revamps",
     "es": "Renovaciones de Pr\u00f3ximo Nivel",
-    "de": "Revamps der n\u00e4chsten Stufe"
+    "de": "Premium Relaunches"
   },
   "card2_desc": {
     "en": "Upgrading your current website with fluid micro-interactions, modern responsive layouts, and cutting-edge design techniques.",
     "es": "Actualizando su sitio web actual con micro-interacciones fluidas, dise\u00f1os receptivos modernos y t\u00e9cnicas de dise\u00f1o de vanguardia.",
-    "de": "Upgrade Ihrer aktuellen Website mit fl\u00fcssigen Mikro-Interaktionen, modernen responsiven Layouts und hochmodernen Designtechniken."
+    "de": "Aufwertung Ihrer bestehenden Website mit fl\u00fcssigen Mikro-Interaktionen, modernen responsiven Layouts und innovativen Design-Methoden."
   },
   "card2_tag1": {
     "en": "[ KINETIC GRAPHICS ]",
     "es": "[ GR\u00c1FICOS CIN\u00c9TICOS ]",
-    "de": "[ KINETISCHE GRAFIKEN ]"
+    "de": "[ KINETISCHES DESIGN ]"
   },
   "card2_tag2": {
     "en": "MODERN UPGRADES",
@@ -997,12 +1000,12 @@
   "card3_title": {
     "en": "Conversion & Performance",
     "es": "Conversi\u00f3n y Rendimiento",
-    "de": "Konversion & Leistung"
+    "de": "Conversion & Performance"
   },
   "card3_desc": {
     "en": "Re-engineering user interfaces and optimizing performance metrics to seamlessly turn visitors into loyal clients.",
     "es": "Reingenier\u00eda de interfaces de usuario y optimizaci\u00f3n de m\u00e9tricas de rendimiento para convertir sin problemas a los visitantes en clientes leales.",
-    "de": "Re-Engineering von Benutzeroberfl\u00e4chen und Optimierung von Leistungsmetriken, um Besucher nahtlos in treue Kunden zu verwandeln."
+    "de": "Neustrukturierung von Benutzeroberfl\u00e4chen und Optimierung von Leistungskennzahlen, um Besucher nahtlos in treue Kunden zu verwandeln."
   },
   "card3_tag1": {
     "en": "[ OPTIMIZATION ENGINE ]",
@@ -1012,7 +1015,7 @@
   "card3_tag2": {
     "en": "HIGH CONVERSION",
     "es": "ALTA CONVERSI\u00d3N",
-    "de": "HOHE KONVERSION"
+    "de": "HOHE CONVERSION"
   },
   "intake_phase": {
     "en": "Phase 01 // Configuration",
@@ -1022,22 +1025,22 @@
   "intake_heading": {
     "en": "Select your project scope:",
     "es": "Seleccione el alcance de su proyecto:",
-    "de": "W\u00e4hlen Sie Ihren Projektumfang:"
+    "de": "W\u00e4hlen Sie den Projektumfang:"
   },
   "pill_1": {
     "en": "New Website Build",
     "es": "Construcci\u00f3n de Nuevo Sitio",
-    "de": "Neuer Website-Build"
+    "de": "Neue Website erstellen"
   },
   "pill_2": {
     "en": "Website Upgrade / Revamp",
     "es": "Actualizaci\u00f3n / Renovaci\u00f3n",
-    "de": "Website-Upgrade / \u00dcberarbeitung"
+    "de": "Website Upgrade / Relaunch"
   },
   "pill_3": {
     "en": "Performance Optimization",
     "es": "Optimizaci\u00f3n de Rendimiento",
-    "de": "Leistungsoptimierung"
+    "de": "Performance-Optimierung"
   },
   "pill_4": {
     "en": "UI/UX Overhaul",
@@ -1047,7 +1050,7 @@
   "input_placeholder": {
     "en": "Type or select an option above...",
     "es": "Escriba o seleccione una opci\u00f3n arriba...",
-    "de": "Tippen Sie oder w\u00e4hlen Sie oben eine Option..."
+    "de": "Tippen oder w\u00e4hlen Sie eine Option aus..."
   }
 };
     
