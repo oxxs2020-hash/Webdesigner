@@ -1307,9 +1307,9 @@
         <h3 class="intake-title" id="intakeHeading" data-i18n="intake_heading">Select your project scope:</h3>
 
         <div class="pill-group" id="pillGroup">
-          <button class="pill" onclick="selectPill(this)" data-i18n="pill_1">New Website Build</button>
-          <button class="pill" onclick="selectPill(this)" data-i18n="pill_2">Website Upgrade / Revamp</button>
-          <button class="pill" onclick="selectPill(this)" data-i18n="pill_3">Performance Optimization</button>
+          <button class="pill scope-option" onclick="selectPill(this)" data-i18n="pill_1">New Website Build</button>
+          <button class="pill scope-option" onclick="selectPill(this)" data-i18n="pill_2">Website Upgrade / Revamp</button>
+          <button class="pill scope-option" onclick="selectPill(this)" data-i18n="pill_3">Performance Optimization</button>
                   </div>
 
         <div class="intake-input-wrapper">
@@ -1736,6 +1736,27 @@
 
     document.getElementById('intakeInputField').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') submitIntake();
+    });
+
+    // Add to your main <script> tag
+    document.addEventListener('DOMContentLoaded', () => {
+      const scopeButtons = document.querySelectorAll('.scope-option'); // add this class to your scope buttons
+      const emailLink = document.querySelector('a[href^="mailto:"]');
+
+      scopeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          scopeButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          
+          const selectedScope = button.innerText.trim();
+          const subject = encodeURIComponent(`Project Inquiry: ${selectedScope}`);
+          const body = encodeURIComponent(`Hi Oscar,\n\nI am looking to start a project under the "${selectedScope}" scope. Let's discuss requirements and timeline.\n\nBest,`);
+          
+          if (emailLink) {
+            emailLink.href = `mailto:AURA.AGENCY.VIGO2026@GMAIL.COM?subject=${subject}&body=${body}`;
+          }
+        });
+      });
     });
   </script>
 </body>
