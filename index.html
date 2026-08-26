@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="title">AURA AGENCY // WEB ARCHITECTURE</title>
+  <title data-i18n="title">AURA AGENCY // WEB DESIGN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -568,10 +568,10 @@
       transition: transform 0.2s ease;
     }
 
-    /* About Architect Section */
+    /* About About Section */
     .about-section {
       position: relative;
-      padding: 8rem 7vw 2rem 7vw;
+      padding: 4rem 7vw 2rem 7vw;
       
       background: rgba(255, 255, 255, 0.01);
       border-top: 1px solid var(--border);
@@ -862,6 +862,11 @@
 
     
     .contact-center-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 2rem;
+
       position: relative;
       border-radius: 24px;
       overflow: hidden;
@@ -1160,7 +1165,7 @@
         min-height: 350px;
       }
       .contact-image-overlay {
-        background: linear-gradient(to bottom, transparent 50%, rgba(14, 14, 18, 0.95) 100%);
+        background: transparent;
       }
       .contact-name {
         font-size: 2rem;
@@ -1642,9 +1647,9 @@
     <nav class="dock" id="dynamicDock">
 
       <button class="dock-expand-trigger" id="dockExpandTrigger" aria-label="Quick Contact">⚡</button>
-      <a href="#hero" class="dock-item" data-i18n="nav_1">Nexus</a>
-      <a href="#architect" class="dock-item" data-i18n="nav_2">Architect</a>
-      <a href="#solutions" class="dock-item" data-i18n="nav_3">Solutions</a>
+      <a href="#hero" class="dock-item" data-i18n="nav_1">Home</a>
+      <a href="#architect" class="dock-item" data-i18n="nav_2">About</a>
+      <a href="#solutions" class="dock-item" data-i18n="nav_3">Services</a>
       <a href="#contact" class="shimmer-btn magnetic-btn">
         <span class="shimmer-btn-bg"></span>
         <span class="ripple-effect"></span>
@@ -1677,9 +1682,9 @@
           <span class="badge-indicator"></span>
           <span data-i18n="hero_badge">AURA AGENCY // OSCAR OTERO ALVAREZ</span>
         </div>
-        <h1 class="hero-title" data-scramble data-i18n="hero_title">Next-Generation Web Architecture.</h1>
+        <h1 class="hero-title" data-scramble data-i18n="hero_title">Creative Web Design.</h1>
         <p class="hero-desc" data-i18n="hero_desc">
-          Crafting bespoke websites and upgrading existing platforms with high-conversion engineering. Built for brands that demand top-tier digital experiences.
+          Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.
         </p>
         <div class="hero-actions">
           <a href="#contact" class="shimmer-btn magnetic-btn">
@@ -1694,36 +1699,36 @@
 
     <div class="marquee-container" id="velocityMarquee">
       <div class="marquee-track">
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3l7.5 13h-15L12 5z"/></svg>Next.js</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 6.036c-3.318 0-6.037 2.72-6.037 6.037s2.72 6.036 6.037 6.036 6.036-2.72 6.036-6.036S15.318 6.036 12 6.036z"/></svg>Tailwind CSS</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3.5 7.5L12 8l3.5 4.5h-7z"/></svg>TypeScript</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M21 14.5c0 1.38-1.12 2.5-2.5 2.5S16 15.88 16 14.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5zM8 14.5c0 1.38-1.12 2.5-2.5 2.5S3 15.88 3 14.5 4.12 12 5.5 12 8 13.12 8 14.5z"/></svg>Supabase</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>Three.js</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M15.332 8.668a3.333 3.333 0 100 6.665 3.333 3.333 0 000-6.665zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>Figma</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19.5h20L12 2zm0 4l6.5 11.5h-13L12 6z"/></svg>Vercel</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>Framer Motion</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3l7.5 13h-15L12 5z"/></svg>Modern Design</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 6.036c-3.318 0-6.037 2.72-6.037 6.037s2.72 6.036 6.037 6.036 6.036-2.72 6.036-6.036S15.318 6.036 12 6.036z"/></svg>Creative UI</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3.5 7.5L12 8l3.5 4.5h-7z"/></svg>Smooth Animations</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M21 14.5c0 1.38-1.12 2.5-2.5 2.5S16 15.88 16 14.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5zM8 14.5c0 1.38-1.12 2.5-2.5 2.5S3 15.88 3 14.5 4.12 12 5.5 12 8 13.12 8 14.5z"/></svg>Visual Storytelling</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>Engaging Layouts</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M15.332 8.668a3.333 3.333 0 100 6.665 3.333 3.333 0 000-6.665zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>User-Centric</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19.5h20L12 2zm0 4l6.5 11.5h-13L12 6z"/></svg>Inspiring Visuals</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>Fluid Experience</span></div>
         <!-- Duplicated set for seamless loop -->
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3l7.5 13h-15L12 5z"/></svg>Next.js</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 6.036c-3.318 0-6.037 2.72-6.037 6.037s2.72 6.036 6.037 6.036 6.036-2.72 6.036-6.036S15.318 6.036 12 6.036z"/></svg>Tailwind CSS</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3.5 7.5L12 8l3.5 4.5h-7z"/></svg>TypeScript</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M21 14.5c0 1.38-1.12 2.5-2.5 2.5S16 15.88 16 14.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5zM8 14.5c0 1.38-1.12 2.5-2.5 2.5S3 15.88 3 14.5 4.12 12 5.5 12 8 13.12 8 14.5z"/></svg>Supabase</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>Three.js</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M15.332 8.668a3.333 3.333 0 100 6.665 3.333 3.333 0 000-6.665zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>Figma</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19.5h20L12 2zm0 4l6.5 11.5h-13L12 6z"/></svg>Vercel</span></div>
-        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>Framer Motion</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3l7.5 13h-15L12 5z"/></svg>Modern Design</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 6.036c-3.318 0-6.037 2.72-6.037 6.037s2.72 6.036 6.037 6.036 6.036-2.72 6.036-6.036S15.318 6.036 12 6.036z"/></svg>Creative UI</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3.5 7.5L12 8l3.5 4.5h-7z"/></svg>Smooth Animations</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M21 14.5c0 1.38-1.12 2.5-2.5 2.5S16 15.88 16 14.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5zM8 14.5c0 1.38-1.12 2.5-2.5 2.5S3 15.88 3 14.5 4.12 12 5.5 12 8 13.12 8 14.5z"/></svg>Visual Storytelling</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>Engaging Layouts</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M15.332 8.668a3.333 3.333 0 100 6.665 3.333 3.333 0 000-6.665zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>User-Centric</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19.5h20L12 2zm0 4l6.5 11.5h-13L12 6z"/></svg>Inspiring Visuals</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>Fluid Experience</span></div>
       </div>
     </div>
 
     <section id="architect" class="about-section">
       <div class="about-container">
         <div class="about-image-wrapper">
-          <img src="hero_bg.jpg" alt="Oscar Otero Alvarez - Web Architect" class="about-image">
+          <img src="hero_bg.jpg" alt="Oscar Otero Alvarez - Web About" class="about-image">
         </div>
         <div class="about-content">
-          <div class="badge" data-i18n="about_badge">Chief Architect</div>
+          <div class="badge" data-i18n="about_badge">Lead Web Designer</div>
           <h2 class="section-title" data-scramble>Oscar Otero Alvarez.</h2>
           <p class="about-desc" data-i18n="about_desc">
-            Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web architectures tailored for elite brands and forward-thinking enterprises. By fusing visual fidelity with deep technical optimization, I build platforms that define the digital edge.
+            Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web architectures tailored for creative brands and modern businesses. By fusing visual fidelity with deep technical optimization, I build platforms that define the digital edge.
           </p>
         </div>
       </div>
@@ -1731,8 +1736,8 @@
 
     <section id="solutions" class="bento-section">
       <div class="section-header">
-        <div class="badge" data-i18n="solutions_badge">Capabilities Array</div>
-        <h2 class="section-title" data-scramble data-i18n="solutions_title">Engineered with Precision.</h2>
+        <div class="badge" data-i18n="solutions_badge">Our Services</div>
+        <h2 class="section-title" data-scramble data-i18n="solutions_title">Designed with Passion.</h2>
       </div>
 
       <div class="bento-grid">
@@ -1740,7 +1745,7 @@
           <div class="card-shine"></div>
           <div class="card-specular"></div>
           <div>
-            <h3 data-i18n="card1_title">Elite Web Builds</h3>
+            <h3 data-i18n="card1_title">Modern Web Builds</h3>
             <p data-i18n="card1_desc">Building modern websites from the ground up with instant performance, clean code architecture, and striking futuristic visuals.</p>
           </div>
           <div class="card-action-badge" data-i18n="card1_tag2">NEXT-GEN STACK →</div>
@@ -1828,16 +1833,16 @@
             
             <div class="contact-divider"></div>
 
-            <p class="contact-bio" data-i18n="contact_bio">Designing & engineering high-performance web platforms for elite brands. Based in Vigo, Spain — available worldwide.</p>
+            <p class="contact-bio" data-i18n="contact_bio">Designing & engineering high-performance web platforms for creative brands. Based in Vigo, Spain — available worldwide.</p>
             
             <div class="contact-links-v2">
-              <a href="tel:+34667681128">
-                <div>✆</div>
-                <div>
-                  <span>Phone</span>
-                  <span>+34 667 681 128</span>
+              <a href="tel:+34667681128" class="contact-link-row">
+                <div class="link-icon-v2">✆</div>
+                <div class="link-details">
+                  <span class="link-label">Phone</span>
+                  <span class="link-value">+34 667 681 128</span>
                 </div>
-                <div></div>
+                <div class="link-sweep"></div>
               </a>
               <a href="mailto:aura.agency.vigo2026@gmail.com" class="contact-link-row">
                 <div class="link-icon-v2">✉</div>
@@ -1854,11 +1859,8 @@
       </div>
       
       <!-- Footer -->
-      <footer class="site-footer">
-        <div class="footer-divider"></div>
-        <div class="footer-content">
-          <p>&copy; 2026 all rights reserved.</p>
-        </div>
+      <footer class="site-footer" style="text-align: center; padding: 2rem 0; color: rgba(255,255,255,0.4); font-family: var(--font-mono); font-size: 0.8rem;">
+        <p>&copy; 2026 all rights reserved.</p>
       </footer>
     </section>
   </main>
@@ -1979,7 +1981,7 @@
     // --- Translations ---
     const translations = {
   "title": {
-    "en": "AURA AGENCY // WEB ARCHITECTURE",
+    "en": "AURA AGENCY // WEB DESIGN",
     "es": "AURA AGENCY // ARQUITECTURA WEB",
     "de": "AURA AGENCY // WEB-ARCHITEKTUR"
   },
@@ -1994,7 +1996,7 @@
     "de": "Aura Agency.<br>Wir erstellen<br>Webseiten mit<br>hohem Design."
   },
   "hero_desc": {
-    "en": "Crafting bespoke websites and upgrading existing platforms with high-conversion engineering. Built for brands that demand top-tier digital experiences.",
+    "en": "Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.",
     "es": "Diseñamos sitios web a medida y potenciamos plataformas existentes con ingeniería orientada a la conversión. Creado para marcas que exigen experiencias digitales de primer nivel.",
     "de": "Wir entwickeln ma\u00dfgeschneiderte Websites und transformieren bestehende Plattformen mit modernstem Design und hochkonvertierender Technologie. Ma\u00dfgeschneidert f\u00fcr Marken, die digitale Exzellenz fordern."
   },
@@ -2009,17 +2011,17 @@
     "de": "Leistungen ansehen"
   },
   "nav_1": {
-    "en": "Nexus",
+    "en": "Home",
     "es": "Inicio",
     "de": "Start"
   },
   "nav_2": {
-    "en": "Architect",
+    "en": "About",
     "es": "Arquitecto",
     "de": "Architekt"
   },
   "nav_3": {
-    "en": "Solutions",
+    "en": "Services",
     "es": "Soluciones",
     "de": "L\u00f6sungen"
   },
@@ -2054,27 +2056,27 @@
     "de": "Conversion-Optimierung"
   },
   "about_badge": {
-    "en": "Chief Architect",
+    "en": "Lead Web Designer",
     "es": "Arquitecto Principal",
     "de": "Chefarchitekt"
   },
   "about_desc": {
-    "en": "Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web architectures tailored for elite brands and forward-thinking enterprises. By fusing visual fidelity with deep technical optimization, I build platforms that define the digital edge.",
+    "en": "Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web architectures tailored for creative brands and modern businesses. By fusing visual fidelity with deep technical optimization, I build platforms that define the digital edge.",
     "es": "Diseñador e ingeniero con visión de futuro al frente de Aura Agency. Especializado en arquitecturas web altamente interactivas y de estética futurista, concebidas para marcas de élite y empresas con mentalidad innovadora. Fusionando calidad visual con optimización técnica avanzada, construyo plataformas que marcan la vanguardia digital.",
     "de": "Vision\u00e4rer Designer und Ingenieur hinter Aura Agency. Spezialisiert auf hochgradig interaktive, zukunftsweisende Web-Architekturen, ma\u00dfgeschneidert f\u00fcr Elite-Marken und innovative Unternehmen. Indem ich visuelle Perfektion mit tiefgreifender technischer Optimierung vereine, erschaffe ich Plattformen, die digitale Ma\u00dfst\u00e4be setzen."
   },
   "solutions_badge": {
-    "en": "Capabilities Array",
+    "en": "Our Services",
     "es": "Catálogo de Servicios",
     "de": "Leistungs\u00fcbersicht"
   },
   "solutions_title": {
-    "en": "Engineered with Precision.",
+    "en": "Designed with Passion.",
     "es": "Ingeniería de Precisión.",
     "de": "Mit h\u00f6chster Pr\u00e4zision entwickelt."
   },
   "card1_title": {
-    "en": "Elite Web Builds",
+    "en": "Modern Web Builds",
     "es": "Desarrollo Web de Élite",
     "de": "Elite Web-Entwicklung"
   },
@@ -2169,7 +2171,7 @@
     "de": "Tippen oder w\u00e4hlen Sie eine Option aus..."
   },
   "contact_bio": {
-    "en": "Designing & engineering high-performance web platforms for elite brands. Based in Vigo, Spain — available worldwide.",
+    "en": "Designing & engineering high-performance web platforms for creative brands. Based in Vigo, Spain — available worldwide.",
     "es": "Diseño e ingeniería de plataformas web de alto rendimiento para marcas de élite. Con base en Vigo, España — disponible a nivel mundial.",
     "de": "Design & Entwicklung hochleistungsfähiger Web-Plattformen für Elite-Marken. Standort Vigo, Spanien — weltweit verfügbar."
   }
