@@ -1529,6 +1529,16 @@
       letter-spacing: 0.05em;
     }
 
+    
+    /* ═══ Anti-Gravity Floating ═══ */
+    @keyframes antiGravityFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+    .float-1 { animation: antiGravityFloat 6s ease-in-out infinite; }
+    .float-2 { animation: antiGravityFloat 7s ease-in-out infinite 1s; }
+    .float-3 { animation: antiGravityFloat 8s ease-in-out infinite 2s; }
+
     /* ═══ Component State Machine ═══ */
     /* 1. Focus Visible (Keyboard Accessibility) */
     :focus-visible {
@@ -1676,7 +1686,7 @@
 
   <main>
     <section id="hero" class="hero">
-      <div class="hero-content">
+      <div class="hero-content float-1">
         <div class="badge">
           <span class="badge-indicator"></span>
           <span data-i18n="hero_badge">AURA AGENCY // OSCAR OTERO ALVAREZ</span>
@@ -1721,9 +1731,9 @@
     <section id="architect" class="about-section">
       <div class="about-container">
         <div class="about-image-wrapper">
-          <img src="hero_bg.jpg" alt="Oscar Otero Alvarez - Web About" class="about-image">
+          <img src="hero_bg.jpg" alt="Oscar Otero Alvarez - Web About" class="about-image float-3">
         </div>
-        <div class="about-content">
+        <div class="about-content float-1">
           <div class="badge" data-i18n="about_badge">Lead Web Designer</div>
           <h2 class="section-title" data-scramble>Oscar Otero Alvarez.</h2>
           <p class="about-desc" data-i18n="about_desc">
@@ -1739,7 +1749,7 @@
         <h2 class="section-title" data-scramble data-i18n="solutions_title">Designed with Passion.</h2>
       </div>
 
-      <div class="bento-grid">
+      <div class="bento-grid float-2">
         <div class="bento-card bento-7">
           <div class="card-shine"></div>
           <div class="card-specular"></div>
@@ -1773,7 +1783,7 @@
     </section>
 
     <section id="contact" class="intake-section">
-      <div class="intake-box">
+      <div class="intake-box float-2">
         <div class="step-tag" id="intakePhase" data-i18n="intake_phase">Phase 01 // Configuration</div>
         <h3 class="intake-title" id="intakeHeading" data-i18n="intake_heading">Select your project scope:</h3>
 
@@ -2393,9 +2403,17 @@
             ctx.fillStyle = 'rgba(76, 201, 240, 0.9)'; // blue
           }
           
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    
+          // Anti-gravity theme: Keep the area above the man's picture (top right) completely clear of numbers
+          const xPos = i * fontSize;
+          const yPos = drops[i] * fontSize;
+          const isTopRight = (xPos > width * 0.55 && yPos < height * 0.6);
           
-          if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          if (!isTopRight) {
+            ctx.fillText(text, xPos, yPos);
+          }
+          
+          if (yPos > height && Math.random() > 0.975) {
             drops[i] = 0;
           }
           drops[i]++;
