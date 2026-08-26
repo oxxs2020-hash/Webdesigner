@@ -840,7 +840,7 @@
     document.querySelectorAll('[data-scramble]').forEach(el => {
       el.addEventListener('mouseenter', () => {
         let iteration = 0;
-        const originalText = el.classList.contains('hero-title') ? 'Aura Agency, we create high design web pages' : el.innerText;
+        const originalText = el.classList.contains('hero-title') ? 'Aura Agency. We create high design webpages.' : el.innerText;
         clearInterval(el.dataset.interval);
 
         el.dataset.interval = setInterval(() => {
