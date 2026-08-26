@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #111116;
+      --bg: #1a1025;
       --surface: rgba(255, 255, 255, 0.02);
       --surface-elevated: rgba(255, 255, 255, 0.04);
       --border: rgba(255, 255, 255, 0.08);
@@ -840,7 +840,7 @@
     document.querySelectorAll('[data-scramble]').forEach(el => {
       el.addEventListener('mouseenter', () => {
         let iteration = 0;
-        const originalText = el.innerText;
+        const originalText = el.classList.contains('hero-title') ? 'Aura Agency, we create high design web pages' : el.innerText;
         clearInterval(el.dataset.interval);
 
         el.dataset.interval = setInterval(() => {
