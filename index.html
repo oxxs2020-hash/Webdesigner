@@ -1166,6 +1166,80 @@
         font-size: 2rem;
       }
     }
+
+    /* ═══ Component State Machine ═══ */
+    /* 1. Focus Visible (Keyboard Accessibility) */
+    :focus-visible {
+      outline: 2px solid rgba(0, 240, 255, 0.8);
+      outline-offset: 4px;
+    }
+    
+    /* 2. Active / Pressed */
+    button:active, .dock-item:active, .shimmer-btn:active, .contact-link-row:active, a:active {
+      transform: scale(0.96) !important;
+      transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* 3. Disabled State */
+    .disabled, :disabled {
+      opacity: 0.5 !important;
+      pointer-events: none !important;
+      filter: grayscale(100%) !important;
+      cursor: not-allowed !important;
+    }
+
+    /* 4. Error / Validation State */
+    .state-error {
+      border-color: #ff2a5f !important;
+      box-shadow: 0 0 15px rgba(255, 42, 95, 0.4) !important;
+      animation: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      color: #ff2a5f !important;
+    }
+    @keyframes shake {
+      10%, 90% { transform: translate3d(-2px, 0, 0); }
+      20%, 80% { transform: translate3d(3px, 0, 0); }
+      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+      40%, 60% { transform: translate3d(4px, 0, 0); }
+    }
+
+    /* 5. Loading State & Skeleton */
+    .state-loading {
+      position: relative !important;
+      color: transparent !important;
+      pointer-events: none !important;
+    }
+    .state-loading::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 1.2em; height: 1.2em;
+      margin-top: -0.6em; margin-left: -0.6em;
+      border: 2px solid rgba(0, 240, 255, 0.3);
+      border-top-color: #00f0ff;
+      border-radius: 50%;
+      animation: spinner 0.8s linear infinite;
+    }
+    @keyframes spinner {
+      to { transform: rotate(360deg); }
+    }
+
+    .skeleton {
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+    .skeleton::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -150%;
+      width: 150%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      animation: skeleton-shimmer 1.5s infinite;
+    }
+    @keyframes skeleton-shimmer {
+      100% { left: 100%; }
+    }
 </style>
 
 </head>
