@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA // Skiper UI Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #040406;
+      --surface: rgba(255, 255, 255, 0.02);
+      --surface-elevated: rgba(255, 255, 255, 0.04);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f4f4f7;
+      --muted: #848795;
+      --accent: #6366f1;
+      --accent-rgb: 99, 102, 241;
+      --radius: 24px;
+      --font-display: 'Syne', sans-serif;
+      --font-mono: 'Space Grotesk', monospace;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      cursor: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Skiper Custom Reactive Cursor */
+    #cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+    }
+
+    #cursor-ring {
+      position: fixed;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.08s ease-out, width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s;
+    }
+
+    body.hovering #cursor-dot {
+      transform: translate(-50%, -50%) scale(0);
+    }
+
+    body.hovering #cursor-ring {
+      width: 64px;
+      height: 64px;
+      border-color: rgba(99, 102, 241, 0.8);
+      background: rgba(99, 102, 241, 0.08);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Ambient Background Grid & Noise */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: 
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.03;
+      background: radial-gradient(#fff 10%, transparent 15%), #000;
+      background-size: 3px 3px;
+    }
+
+    /* Skiper Adaptive Dock Navigation */
+    .dock-container {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+
+    .dock {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      background: rgba(10, 10, 14, 0.75);
+      backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    .dock-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.6rem 1.2rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: bottom center;
+    }
+
+    .dock-item:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Skiper Shimmer Border Button */
+    .shimmer-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1px;
+      border-radius: 9999px;
+      overflow: hidden;
+      background: transparent;
+      text-decoration: none;
+    }
+
+    .shimmer-btn-bg {
+      position: absolute;
+      inset: -200%;
+      background: conic-gradient(from 0deg, transparent 0 340deg, #fff 360deg);
+      animation: rotate 4s linear infinite;
+    }
+
+    .shimmer-btn-content {
+      position: relative;
+      background: #09090d;
+      padding: 0.9rem 2rem;
+      border-radius: 9999px;
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: background 0.2s;
+    }
+
+    .shimmer-btn:hover .shimmer-btn-content {
+      background: #13131a;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      padding: 0 7vw;
+      z-index: 2;
+    }
+
+    .hero-content {
+      max-width: 640px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #c7d2fe;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      background: rgba(99, 102, 241, 0.1);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      margin-bottom: 2rem;
+    }
+
+    .badge-indicator {
+      width: 7px;
+      height: 7px;
+      background: #818cf8;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #818cf8;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.2rem, 5.5vw, 6.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .btn-glass {
+      padding: 0.9rem 1.8rem;
+      border-radius: 9999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-glass:hover {
+      background: var(--surface-elevated);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-canvas-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #webgl-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Infinite Marquee */
+    .marquee-container {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+      background: rgba(255, 255, 255, 0.01);
+      z-index: 2;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
+    }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0 2rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .marquee-item span.dot {
+      width: 5px;
+      height: 5px;
+      background: var(--border);
+      border-radius: 50%;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Skiper Dynamic Glowing Bento Grid */
+    .bento-section {
+      position: relative;
+      padding: 10rem 7vw;
+      z-index: 2;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4vw, 4rem);
+      letter-spacing: -0.03em;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.5rem;
+    }
+
+    .bento-card {
+      position: relative;
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transform: perspective(1000px);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Radiant Border Engine */
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(
+        600px circle at var(--mouse-x, -200px) var(--mouse-y, -200px),
+        rgba(255, 255, 255, 0.35),
+        transparent 40%
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Radial Hover Glow */
+    .bento-card::after {
+      content: '';
+      position: absolute;
+      top: var(--mouse-y, -200px);
+      left: var(--mouse-x, -200px);
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .bento-card:hover::after {
+      opacity: 1;
+    }
+
+    .bento-7 { grid-column: span 7; min-height: 400px; }
+    .bento-5 { grid-column: span 5; min-height: 400px; }
+    .bento-12 { grid-column: span 12; min-height: 320px; }
+
+    .bento-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .bento-card p {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 480px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* Conversational Intake Engine */
+    .intake-section {
+      position: relative;
+      padding: 8rem 7vw 12rem 7vw;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .intake-box {
+      width: 100%;
+      max-width: 740px;
+      background: rgba(14, 14, 18, 0.9);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3.5rem;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+    }
+
+    .step-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .intake-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .pill {
+      padding: 0.65rem 1.25rem;
+      border-radius: 9999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+    }
+
+    .pill:hover, .pill.active {
+      background: #fff;
+      color: #000;
+      border-color: #fff;
+    }
+
+    .intake-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .intake-input-wrapper input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--border);
+      padding: 1rem 3rem 1rem 0;
+      color: #fff;
+      font-size: 1.35rem;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.25s ease;
+    }
+
+    .intake-input-wrapper input:focus {
+      border-color: #fff;
+    }
+
+    .intake-btn {
+      position: absolute;
+      right: 0;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      transition: transform 0.2s ease;
+    }
+
+    .intake-btn:hover {
+      transform: translateX(4px);
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 7rem;
+      }
+      .hero-canvas-container {
+        height: 40vh;
+      }
+      .bento-7, .bento-5 {
+        grid-column: span 12;
+      }
+      .intake-box {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <div class="bg-grid"></div>
+  <div class="grain"></div>
+
+  <div class="dock-container">
+    <nav class="dock" id="dynamicDock">
+      <a href="#hero" class="dock-item">Nexus</a>
+      <a href="#solutions" class="dock-item">Solutions</a>
+      <a href="#contact" class="shimmer-btn">
+        <span class="shimmer-btn-bg"></span>
+        <span class="shimmer-btn-content">Launch Brief &rarr;</span>
+      </a>
+    </nav>
+  </div>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <div class="badge">
+          <span class="badge-indicator"></span>
+          <span>SKIPER UI RUNTIME // 2026</span>
+        </div>
+        <h1 class="hero-title" data-scramble>Autonomous Web Architectures.</h1>
+        <p class="hero-desc">
+          High-conversion engineering fused with dynamic visual primitives. Sub-second response loops built exclusively for enterprise leaders.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="shimmer-btn">
+            <span class="shimmer-btn-bg"></span>
+            <span class="shimmer-btn-content">Build Systems</span>
+          </a>
+          <a href="#solutions" class="btn-glass">Verify Specs</a>
+        </div>
+      </div>
+      <div class="hero-canvas-container">
+        <canvas id="webgl-canvas"></canvas>
+      </div>
+    </section>
+
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <div class="marquee-item">Sub-300ms Edge CDN <span class="dot"></span></div>
+        <div class="marquee-item">GLSL Shaders 60FPS <span class="dot"></span></div>
+        <div class="marquee-item">Fluid Micro-Interactions <span class="dot"></span></div>
+        <div class="marquee-item">Dynamic Bento Layouts <span class="dot"></span></div>
+        <div class="marquee-item">Conversion Engineering <span class="dot"></span></div>
+        <div class="marquee-item">Sub-300ms Edge CDN <span class="dot"></span></div>
+        <div class="marquee-item">GLSL Shaders 60FPS <span class="dot"></span></div>
+        <div class="marquee-item">Fluid Micro-Interactions <span class="dot"></span></div>
+        <div class="marquee-item">Dynamic Bento Layouts <span class="dot"></span></div>
+        <div class="marquee-item">Conversion Engineering <span class="dot"></span></div>
+      </div>
+    </div>
+
+    <section id="solutions" class="bento-section">
+      <div class="section-header">
+        <div class="badge">Capabilities Array</div>
+        <h2 class="section-title" data-scramble>Engineered with Precision.</h2>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card bento-7">
+          <div>
+            <h3>Modular Edge Platforms</h3>
+            <p>Constructed over modern micro-architectures with instant prefetching, serverless caching, and atomic asset deliveries.</p>
+          </div>
+          <div class="card-footer">
+            <span>[ SYSTEM ARCHITECTURE ]</span>
+            <span>NEXT-GEN STACK</span>
+          </div>
+        </div>
+
+        <div class="bento-card bento-5">
+          <div>
+            <h3>GPU Interactive Shaders</h3>
+            <p>Hardware-accelerated rendering loops providing real-time spatial depth and zero thread locks.</p>
+          </div>
+          <div class="card-footer">
+            <span>[ KINETIC GRAPHICS ]</span>
+            <span>60 FPS CAP</span>
+          </div>
+        </div>
+
+        <div class="bento-card bento-12">
+          <div>
+            <h3>Conversion Math & Algorithmic UX</h3>
+            <p>Every interface element is calibrated against predictive behavioral flow charts to transform intent into transactions seamlessly.</p>
+          </div>
+          <div class="card-footer">
+            <span>[ OPTIMIZATION ENGINE ]</span>
+            <span>HIGH CONVERSION</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="intake-section">
+      <div class="intake-box">
+        <div class="step-tag" id="intakePhase">Phase 01 // Configuration</div>
+        <h3 class="intake-title" id="intakeHeading">Select your project scope:</h3>
+
+        <div class="pill-group" id="pillGroup">
+          <button class="pill" onclick="selectPill(this)">Full Platform Build</button>
+          <button class="pill" onclick="selectPill(this)">High-Scale SaaS Frontend</button>
+          <button class="pill" onclick="selectPill(this)">3D Spatial Experience</button>
+          <button class="pill" onclick="selectPill(this)">Design Engineering Sprint</button>
+        </div>
+
+        <div class="intake-input-wrapper">
+          <input type="text" id="intakeInputField" placeholder="Type or select an option above..." autocomplete="off">
+          <button class="intake-btn" onclick="submitIntake()">&rarr;</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // 1. Reactive Skiper Smooth Cursor
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let ringPos = { x: mouse.x, y: mouse.y };
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      dot.style.left = `${mouse.x}px`;
+      dot.style.top = `${mouse.y}px`;
+    });
+
+    function updateCursor() {
+      ringPos.x += (mouse.x - ringPos.x) * 0.15;
+      ringPos.y += (mouse.y - ringPos.y) * 0.15;
+      ring.style.left = `${ringPos.x}px`;
+      ring.style.top = `${ringPos.y}px`;
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    const hoverables = document.querySelectorAll('a, button, input, .bento-card');
+    hoverables.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+
+    // 2. Skiper Proximity Dock Magnification
+    const dock = document.getElementById('dynamicDock');
+    const dockItems = dock.querySelectorAll('.dock-item');
+
+    dock.addEventListener('mousemove', (e) => {
+      dockItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        const itemCenter = rect.left + rect.width / 2;
+        const distance = Math.abs(e.clientX - itemCenter);
+        const scale = Math.max(1, 1.25 - distance / 150);
+        item.style.transform = `scale(${scale})`;
+      });
+    });
+
+    dock.addEventListener('mouseleave', () => {
+      dockItems.forEach(item => {
+        item.style.transform = 'scale(1)';
+      });
+    });
+
+    // 3. Bento Radiant Border + Gyroscopic 3D Tilt
+    document.querySelectorAll('.bento-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
+        const rotateX = ((y / rect.height) - 0.5) * -10;
+        const rotateY = ((x / rect.width) - 0.5) * 10;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    });
+
+    // 4. Decrypt / Scramble Text Effect on Entry
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    document.querySelectorAll('[data-scramble]').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        let iteration = 0;
+        const originalText = el.innerText;
+        clearInterval(el.dataset.interval);
+
+        el.dataset.interval = setInterval(() => {
+          el.innerText = originalText.split("").map((letter, index) => {
+            if (index < iteration) return originalText[index];
+            return letters[Math.floor(Math.random() * letters.length)];
+          }).join("");
+
+          if (iteration >= originalText.length) {
+            clearInterval(el.dataset.interval);
+          }
+          iteration += 1 / 2;
+        }, 20);
+      });
+    });
+
+    // 5. High-Precision Interactive WebGL Mesh
+    const canvas = document.getElementById('webgl-canvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+    camera.position.z = 4.8;
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const geometry = new THREE.TorusKnotGeometry(1.4, 0.45, 120, 32);
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x6366f1,
+      roughness: 0.15,
+      metalness: 0.85,
+      wireframe: true
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    const light1 = new THREE.PointLight(0xffffff, 2, 50);
+    light1.position.set(5, 5, 5);
+    scene.add(light1);
+
+    const light2 = new THREE.PointLight(0x818cf8, 3, 50);
+    light2.position.set(-5, -5, 2);
+    scene.add(light2);
+
+    window.addEventListener('resize', () => {
+      const width = canvas.parentElement.clientWidth;
+      const height = canvas.parentElement.clientHeight;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      mesh.rotation.x += 0.003;
+      mesh.rotation.y += 0.005;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // 6. Conversational Flow Logic
+    let step = 1;
+    function selectPill(btn) {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('intakeInputField').value = btn.innerText;
+    }
+
+    function submitIntake() {
+      const input = document.getElementById('intakeInputField');
+      const val = input.value.trim();
+      if (!val && step < 3) return;
+
+      if (step === 1) {
+        document.getElementById('intakePhase').innerText = 'Phase 02 // Timeline';
+        document.getElementById('intakeHeading').innerText = 'Target Launch Window:';
+        document.getElementById('pillGroup').innerHTML = `
+          <button class="pill" onclick="selectPill(this)">Under 30 Days</button>
+          <button class="pill" onclick="selectPill(this)">Next Quarter</button>
+          <button class="pill" onclick="selectPill(this)">Flexible</button>
+        `;
+        input.value = '';
+        input.placeholder = 'Select option or write timeline...';
+        step = 2;
+      } else if (step === 2) {
+        document.getElementById('intakePhase').innerText = 'Phase 03 // Handshake';
+        document.getElementById('intakeHeading').innerText = 'Forwarding Address:';
+        document.getElementById('pillGroup').innerHTML = '';
+        input.value = '';
+        input.placeholder = 'your.email@company.com';
+        step = 3;
+      } else if (step === 3) {
+        document.getElementById('intakePhase').innerText = 'Complete';
+        document.getElementById('intakeHeading').innerText = 'Parameters Logged. We will be in touch.';
+        document.getElementById('pillGroup').style.display = 'none';
+        document.querySelector('.intake-input-wrapper').style.display = 'none';
+      }
+    }
+
+    document.getElementById('intakeInputField').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') submitIntake();
+    });
+  </script>
+</body>
+</html>
