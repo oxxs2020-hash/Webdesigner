@@ -1167,6 +1167,365 @@
       }
     }
 
+
+    /* ═══ SKIPER UI: Spotlight Bento Grid ═══ */
+    .bento-grid {
+      --grid-mouse-x: -999px;
+      --grid-mouse-y: -999px;
+    }
+
+    .bento-card {
+      --spotlight-size: 400px;
+    }
+
+    .bento-card::before {
+      background: radial-gradient(
+        var(--spotlight-size) circle at var(--mouse-x, -200px) var(--mouse-y, -200px),
+        rgba(99, 102, 241, 0.4),
+        rgba(255, 255, 255, 0.15) 40%,
+        transparent 70%
+      );
+    }
+
+    .card-specular {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      border-radius: inherit;
+      background: radial-gradient(
+        200px circle at var(--spec-x, 50%) var(--spec-y, 50%),
+        rgba(255, 255, 255, 0.06),
+        transparent 70%
+      );
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .bento-card:hover .card-specular {
+      opacity: 1;
+    }
+
+    /* ═══ SKIPER UI: Velocity-Aware Marquee ═══ */
+    .marquee-container {
+      --marquee-speed: 25s;
+    }
+
+    .marquee-track {
+      animation-duration: var(--marquee-speed);
+    }
+
+    .marquee-container:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 1.2rem;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+    }
+
+    .marquee-badge:hover {
+      transform: scale(1.15) translateY(-4px);
+      background: rgba(99, 102, 241, 0.12);
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
+      color: #fff;
+    }
+
+    .marquee-badge svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .marquee-item {
+      padding: 0 1rem;
+    }
+
+    /* ═══ SKIPER UI: Morphing Configurator Chips ═══ */
+    .pill-group {
+      position: relative;
+    }
+
+    .pill-indicator {
+      position: absolute;
+      bottom: -2px;
+      height: 100%;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      transition: 
+        left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+        width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.25s ease;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .pill-indicator.visible {
+      opacity: 1;
+    }
+
+    .pill {
+      position: relative;
+      z-index: 1;
+    }
+
+    .scope-estimate {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  opacity 0.4s ease, 
+                  margin 0.4s ease;
+      margin-top: 0;
+    }
+
+    .scope-estimate.visible {
+      max-height: 200px;
+      opacity: 1;
+      margin-top: 1.5rem;
+    }
+
+    .estimate-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: rgba(99, 102, 241, 0.06);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 16px;
+    }
+
+    .estimate-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .estimate-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .estimate-value {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .estimate-value .counter {
+      display: inline-block;
+      transition: all 0.4s ease;
+    }
+
+    /* ═══ SKIPER UI: 3D Tilt Enhancement ═══ */
+    .card-shine {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      border-radius: inherit;
+      background: radial-gradient(
+        300px circle at var(--shine-x, 50%) var(--shine-y, 50%),
+        rgba(255, 255, 255, 0.07),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      mix-blend-mode: overlay;
+    }
+
+    .bento-card:hover .card-shine {
+      opacity: 1;
+    }
+
+    .card-action-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 2rem;
+      transform: translateZ(0px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                  background 0.3s ease,
+                  box-shadow 0.3s ease;
+    }
+
+    .bento-card:hover .card-action-badge {
+      transform: translateZ(40px) translateY(-2px);
+      background: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+    }
+
+    /* ═══ SKIPER UI: Magnetic CTA + Glow Bleed ═══ */
+    .magnetic-btn {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .magnetic-btn .ripple-effect {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.35);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .magnetic-btn .ripple-effect.active {
+      animation: rippleExpand 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes rippleExpand {
+      0% { 
+        width: 0; 
+        height: 0; 
+        opacity: 0.6; 
+      }
+      100% { 
+        width: 300px; 
+        height: 300px; 
+        opacity: 0; 
+      }
+    }
+
+    /* ═══ SKIPER UI: Floating Dock Panel ═══ */
+    .dock-expand-trigger {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #e9d5ff;
+      font-size: 1rem;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: none;
+    }
+
+    .dock-expand-trigger.visible {
+      display: flex;
+    }
+
+    .dock-expand-trigger:hover {
+      background: rgba(99, 102, 241, 0.35);
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .dock-panel {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%) scaleY(0);
+      transform-origin: bottom center;
+      width: 320px;
+      background: rgba(10, 10, 14, 0.92);
+      backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(99, 102, 241, 0.1);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  opacity 0.3s ease;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 101;
+    }
+
+    .dock-panel.open {
+      transform: translateX(-50%) scaleY(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .dock-panel-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: rgba(99, 102, 241, 0.8);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .dock-panel-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .dock-panel-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.85rem;
+      transition: all 0.25s ease;
+    }
+
+    .dock-panel-link:hover {
+      background: rgba(99, 102, 241, 0.1);
+      border-color: rgba(99, 102, 241, 0.3);
+      transform: translateX(4px);
+    }
+
+    .dock-panel-link .dp-icon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(99, 102, 241, 0.15);
+      border-radius: 8px;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .dock-panel-link .dp-text {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
     /* ═══ Component State Machine ═══ */
     /* 1. Focus Visible (Keyboard Accessibility) */
     :focus-visible {
@@ -1282,15 +1641,33 @@
   <div class="dock-container">
     <nav class="dock" id="dynamicDock">
 
-
+      <button class="dock-expand-trigger" id="dockExpandTrigger" aria-label="Quick Contact">⚡</button>
       <a href="#hero" class="dock-item" data-i18n="nav_1">Nexus</a>
       <a href="#architect" class="dock-item" data-i18n="nav_2">Architect</a>
       <a href="#solutions" class="dock-item" data-i18n="nav_3">Solutions</a>
-      <a href="#contact" class="shimmer-btn">
+      <a href="#contact" class="shimmer-btn magnetic-btn">
         <span class="shimmer-btn-bg"></span>
+        <span class="ripple-effect"></span>
         <span class="shimmer-btn-content">Launch Brief &rarr;</span>
       </a>
     </nav>
+    <div class="dock-panel" id="dockPanel">
+      <div class="dock-panel-title">// Quick Contact</div>
+      <div class="dock-panel-links">
+        <a href="tel:+34667681128" class="dock-panel-link">
+          <div class="dp-icon">✆</div>
+          <div class="dp-text">+34 667 681 128</div>
+        </a>
+        <a href="mailto:aura.agency.vigo2026@gmail.com" class="dock-panel-link">
+          <div class="dp-icon">✉</div>
+          <div class="dp-text">AURA.AGENCY.VIGO2026@GMAIL.COM</div>
+        </a>
+        <a href="#contact" class="dock-panel-link" onclick="document.getElementById('dockPanel').classList.remove('open')">
+          <div class="dp-icon">→</div>
+          <div class="dp-text">CONFIGURE PROJECT BRIEF</div>
+        </a>
+      </div>
+    </div>
   </div>
 
   <main>
@@ -1305,8 +1682,9 @@
           Crafting bespoke websites and upgrading existing platforms with high-conversion engineering. Built for brands that demand top-tier digital experiences.
         </p>
         <div class="hero-actions">
-          <a href="#contact" class="shimmer-btn">
+          <a href="#contact" class="shimmer-btn magnetic-btn">
             <span class="shimmer-btn-bg"></span>
+            <span class="ripple-effect"></span>
             <span class="shimmer-btn-content" data-i18n="hero_btn_1">Start a Project</span>
           </a>
           <a href="#solutions" class="btn-glass" data-i18n="hero_btn_2">View Capabilities</a>
@@ -1314,16 +1692,25 @@
       </div>
     </section>
 
-    <div class="marquee-container">
+    <div class="marquee-container" id="velocityMarquee">
       <div class="marquee-track">
-        <div class="marquee-item"><span data-i18n="mq_1">Custom Web Design</span> <span class="dot"></span></div>
-                <div class="marquee-item"><span data-i18n="mq_3">Fluid Micro-Interactions</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_4">Website Revamps</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_5">Conversion Optimization</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_1">Custom Web Design</span> <span class="dot"></span></div>
-                <div class="marquee-item"><span data-i18n="mq_3">Fluid Micro-Interactions</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_4">Website Revamps</span> <span class="dot"></span></div>
-        <div class="marquee-item"><span data-i18n="mq_5">Conversion Optimization</span> <span class="dot"></span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3l7.5 13h-15L12 5z"/></svg>Next.js</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 6.036c-3.318 0-6.037 2.72-6.037 6.037s2.72 6.036 6.037 6.036 6.036-2.72 6.036-6.036S15.318 6.036 12 6.036z"/></svg>Tailwind CSS</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3.5 7.5L12 8l3.5 4.5h-7z"/></svg>TypeScript</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M21 14.5c0 1.38-1.12 2.5-2.5 2.5S16 15.88 16 14.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5zM8 14.5c0 1.38-1.12 2.5-2.5 2.5S3 15.88 3 14.5 4.12 12 5.5 12 8 13.12 8 14.5z"/></svg>Supabase</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>Three.js</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M15.332 8.668a3.333 3.333 0 100 6.665 3.333 3.333 0 000-6.665zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>Figma</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19.5h20L12 2zm0 4l6.5 11.5h-13L12 6z"/></svg>Vercel</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>Framer Motion</span></div>
+        <!-- Duplicated set for seamless loop -->
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2zm0 3l7.5 13h-15L12 5z"/></svg>Next.js</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 6.036c-3.318 0-6.037 2.72-6.037 6.037s2.72 6.036 6.037 6.036 6.036-2.72 6.036-6.036S15.318 6.036 12 6.036z"/></svg>Tailwind CSS</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm3.5 7.5L12 8l3.5 4.5h-7z"/></svg>TypeScript</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M21 14.5c0 1.38-1.12 2.5-2.5 2.5S16 15.88 16 14.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5zM8 14.5c0 1.38-1.12 2.5-2.5 2.5S3 15.88 3 14.5 4.12 12 5.5 12 8 13.12 8 14.5z"/></svg>Supabase</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>Three.js</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M15.332 8.668a3.333 3.333 0 100 6.665 3.333 3.333 0 000-6.665zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z"/></svg>Figma</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2L2 19.5h20L12 2zm0 4l6.5 11.5h-13L12 6z"/></svg>Vercel</span></div>
+        <div class="marquee-item"><span class="marquee-badge"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>Framer Motion</span></div>
       </div>
     </div>
 
@@ -1350,27 +1737,33 @@
 
       <div class="bento-grid">
         <div class="bento-card bento-7">
+          <div class="card-shine"></div>
+          <div class="card-specular"></div>
           <div>
             <h3 data-i18n="card1_title">Elite Web Builds</h3>
             <p data-i18n="card1_desc">Building modern websites from the ground up with instant performance, clean code architecture, and striking futuristic visuals.</p>
           </div>
-          
+          <div class="card-action-badge" data-i18n="card1_tag2">NEXT-GEN STACK →</div>
         </div>
 
         <div class="bento-card bento-5">
+          <div class="card-shine"></div>
+          <div class="card-specular"></div>
           <div>
             <h3 data-i18n="card2_title">Next-Level Revamps</h3>
             <p data-i18n="card2_desc">Upgrading your current website with fluid micro-interactions, modern responsive layouts, and cutting-edge design techniques.</p>
           </div>
-          
+          <div class="card-action-badge" data-i18n="card2_tag2">MODERN UPGRADES →</div>
         </div>
 
         <div class="bento-card bento-12">
+          <div class="card-shine"></div>
+          <div class="card-specular"></div>
           <div>
             <h3 data-i18n="card3_title">Conversion & Performance</h3>
             <p data-i18n="card3_desc">Re-engineering user interfaces and optimizing performance metrics to seamlessly turn visitors into loyal clients.</p>
           </div>
-          
+          <div class="card-action-badge" data-i18n="card3_tag2">HIGH CONVERSION →</div>
         </div>
       </div>
     </section>
@@ -1381,10 +1774,24 @@
         <h3 class="intake-title" id="intakeHeading" data-i18n="intake_heading">Select your project scope:</h3>
 
         <div class="pill-group" id="pillGroup">
-          <button class="pill scope-option" onclick="selectPill(this)" data-i18n="pill_1">New Website Build</button>
-          <button class="pill scope-option" onclick="selectPill(this)" data-i18n="pill_2">Website Upgrade / Revamp</button>
-          <button class="pill scope-option" onclick="selectPill(this)" data-i18n="pill_3">Performance Optimization</button>
-                  </div>
+          <div class="pill-indicator" id="pillIndicator"></div>
+          <button class="pill scope-option" onclick="selectPill(this)" data-scope="build" data-i18n="pill_1">New Website Build</button>
+          <button class="pill scope-option" onclick="selectPill(this)" data-scope="revamp" data-i18n="pill_2">Website Upgrade / Revamp</button>
+          <button class="pill scope-option" onclick="selectPill(this)" data-scope="optimize" data-i18n="pill_3">Performance Optimization</button>
+        </div>
+
+        <div class="scope-estimate" id="scopeEstimate">
+          <div class="estimate-panel">
+            <div class="estimate-item">
+              <span class="estimate-label">Est. Timeline</span>
+              <span class="estimate-value" id="estTimeline">—</span>
+            </div>
+            <div class="estimate-item">
+              <span class="estimate-label">Est. Investment</span>
+              <span class="estimate-value" id="estInvestment">—</span>
+            </div>
+          </div>
+        </div>
 
         <div class="intake-input-wrapper">
           <input type="text" id="intakeInputField" placeholder="Type or select an option above..." data-i18n-placeholder="input_placeholder" autocomplete="off">
@@ -1506,25 +1913,43 @@
       });
     });
 
-    // 3. Bento Radiant Border + Gyroscopic 3D Tilt
-    document.querySelectorAll('.bento-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-
-        const rotateX = ((y / rect.height) - 0.5) * -10;
-        const rotateY = ((x / rect.width) - 0.5) * 10;
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    // 3. Bento Radiant Border + Gyroscopic 3D Tilt (Enhanced Cross-Card)
+    const bentoGrid = document.querySelector('.bento-grid');
+    const bentoCards = document.querySelectorAll('.bento-card');
+    
+    if (bentoGrid) {
+      bentoGrid.addEventListener('mousemove', (e) => {
+        bentoCards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+          
+          const specX = 100 - (x / rect.width * 100);
+          const specY = 100 - (y / rect.height * 100);
+          card.style.setProperty('--spec-x', `${specX}%`);
+          card.style.setProperty('--spec-y', `${specY}%`);
+        });
       });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      
+      bentoCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const rotateX = ((y / rect.height) - 0.5) * -10;
+          const rotateY = ((x / rect.width) - 0.5) * 10;
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
       });
-    });
+    }
 
     // 4. Decrypt / Scramble Text Effect on Entry
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
@@ -1775,6 +2200,34 @@
       document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('intakeInputField').value = btn.innerText;
+      
+      // Indicator logic
+      const indicator = document.getElementById('pillIndicator');
+      if (indicator) {
+        indicator.style.left = `${btn.offsetLeft}px`;
+        indicator.style.width = `${btn.offsetWidth}px`;
+        indicator.classList.add('visible');
+      }
+      
+      // Estimate logic
+      const estimatePanel = document.getElementById('scopeEstimate');
+      const estTimeline = document.getElementById('estTimeline');
+      const estInvestment = document.getElementById('estInvestment');
+      const scope = btn.dataset.scope;
+      
+      if (estimatePanel && scope) {
+        if (scope === 'build') {
+          estTimeline.innerHTML = '<span class="counter">6–10</span> weeks';
+          estInvestment.innerHTML = '€<span class="counter">4,000–8,000</span>';
+        } else if (scope === 'revamp') {
+          estTimeline.innerHTML = '<span class="counter">3–5</span> weeks';
+          estInvestment.innerHTML = '€<span class="counter">2,000–4,500</span>';
+        } else if (scope === 'optimize') {
+          estTimeline.innerHTML = '<span class="counter">2–3</span> weeks';
+          estInvestment.innerHTML = '€<span class="counter">1,500–3,000</span>';
+        }
+        estimatePanel.classList.add('visible');
+      }
     }
 
     function submitIntake() {
@@ -1832,6 +2285,77 @@
         });
       });
     });
+
+    // ═════ SKIPER UI INTEGRATIONS ═════
+
+    // Velocity-aware Marquee
+    let lastScrollY = window.scrollY;
+    const marqueeContainer = document.getElementById('velocityMarquee');
+    if (marqueeContainer) {
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        const delta = Math.abs(currentScrollY - lastScrollY);
+        lastScrollY = currentScrollY;
+        
+        let speed = 25 - (delta * 0.4);
+        if (speed < 8) speed = 8;
+        if (speed > 25) speed = 25;
+        
+        marqueeContainer.style.setProperty('--marquee-speed', `${speed}s`);
+        
+        clearTimeout(marqueeContainer.scrollTimeout);
+        marqueeContainer.scrollTimeout = setTimeout(() => {
+          marqueeContainer.style.setProperty('--marquee-speed', '25s');
+        }, 150);
+      });
+    }
+
+    // Magnetic CTA Buttons
+    const magneticBtns = document.querySelectorAll('.magnetic-btn');
+    magneticBtns.forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const distanceX = e.clientX - centerX;
+        const distanceY = e.clientY - centerY;
+        
+        btn.style.transform = `translate(${distanceX * 0.3}px, ${distanceY * 0.3}px)`;
+      });
+      
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0px, 0px)';
+      });
+      
+      btn.addEventListener('mousedown', (e) => {
+        const ripple = btn.querySelector('.ripple-effect');
+        if (ripple) {
+          ripple.classList.remove('active');
+          void ripple.offsetWidth; // trigger reflow
+          ripple.classList.add('active');
+        }
+      });
+    });
+
+    // Floating Dock Panel
+    const dockExpandTrigger = document.getElementById('dockExpandTrigger');
+    const dockPanel = document.getElementById('dockPanel');
+    
+    if (dockExpandTrigger && dockPanel) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > window.innerHeight * 0.5) {
+          dockExpandTrigger.classList.add('visible');
+        } else {
+          dockExpandTrigger.classList.remove('visible');
+          dockPanel.classList.remove('open');
+        }
+      });
+      
+      dockExpandTrigger.addEventListener('click', () => {
+        dockPanel.classList.toggle('open');
+      });
+    }
   </script>
 </body>
 </html>
