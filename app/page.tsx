@@ -790,7 +790,7 @@ export default function Home() {
         <div className="liquid-blob blob-3"></div>
       </div>
       <div className="hero-profile-image">
-        <img src="oscar_profile.jpg" alt="Oscar Profile" style={{ width: '100%', height: '90vh', objectFit: 'contain' }} />
+        <img src="oscar_profile.jpg" alt="Oscar Profile" className="hero-img-element" />
       </div>
       <div className="hero-content float-1" style={{ zIndex: 1, position: "relative", textAlign: 'left', marginTop: '10vh' }}>
         <div className="badge" style={{ marginBottom: '2rem' }}>
