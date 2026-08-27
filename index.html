@@ -226,6 +226,61 @@
       background-size: auto 100%;
     }
 
+    /* Vercel-style Liquid Animation */
+    .liquid-bg {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(80px);
+      opacity: 0.6;
+    }
+
+    .liquid-blob {
+      position: absolute;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      animation: liquidMorph 15s infinite alternate ease-in-out;
+    }
+
+    .blob-1 {
+      width: 400px; height: 400px;
+      background: rgba(168, 85, 247, 0.5);
+      top: 10%; left: 10%;
+      animation-delay: 0s;
+    }
+
+    .blob-2 {
+      width: 500px; height: 500px;
+      background: rgba(0, 240, 255, 0.4);
+      top: 30%; right: 10%;
+      animation-delay: -5s;
+      animation-direction: alternate-reverse;
+    }
+
+    .blob-3 {
+      width: 350px; height: 350px;
+      background: rgba(99, 102, 241, 0.4);
+      bottom: 10%; left: 40%;
+      animation-delay: -10s;
+    }
+
+    @keyframes liquidMorph {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      }
+      50% {
+        transform: translate(50px, -50px) scale(1.1) rotate(180deg);
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+      }
+      100% {
+        transform: translate(-30px, 40px) scale(0.9) rotate(360deg);
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      }
+    }
+
     .hero-content {
       max-width: 500px;
       margin-top: 1rem;
@@ -1774,7 +1829,12 @@
 
   <main>
     <section id="hero" class="hero">
-      <div class="hero-content float-1">
+      <div class="liquid-bg">
+        <div class="liquid-blob blob-1"></div>
+        <div class="liquid-blob blob-2"></div>
+        <div class="liquid-blob blob-3"></div>
+      </div>
+      <div class="hero-content float-1" style="z-index: 1; position: relative;">
         <div class="badge">
           <span class="badge-indicator"></span>
           <span data-i18n="hero_badge">AURA AGENCY // OSCAR OTERO ALVAREZ</span>
