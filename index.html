@@ -6,7 +6,7 @@
   <title data-i18n="title">AURA AGENCY // WEB DESIGN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&family=Great+Vibes&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #1c0f1b;
@@ -223,7 +223,7 @@
       padding: 0 7vw;
       
       background: linear-gradient(to right, rgba(17, 17, 22, 0.9) 0%, rgba(17, 17, 22, 0.6) 45%, transparent 100%), url('oscar_profile.jpg') no-repeat right bottom;
-      background-size: contain;
+      background-size: auto 80%;
     }
 
     .hero-content {
@@ -270,9 +270,9 @@
     }
 
     .font-antique {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.5em;
-      font-weight: 400;
+      font-family: 'Old English Text MT', 'UnifrakturMaguntia', 'Pirata One', cursive;
+      font-size: 1.3em;
+      font-weight: bold;
       line-height: 1.2;
     }
 
@@ -1672,10 +1672,37 @@
     @keyframes skeleton-shimmer {
       100% { left: 100%; }
     }
+    /* ═══ Cinematic Data-Rain Atmosphere ═══ */
+    #matrixCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -3;
+      pointer-events: none;
+      /* Vignette: fades rain at edges so content zones breathe */
+      -webkit-mask-image: radial-gradient(
+        ellipse 90% 80% at 50% 55%,
+        #000 30%,
+        transparent 100%
+      );
+      mask-image: radial-gradient(
+        ellipse 90% 80% at 50% 55%,
+        #000 30%,
+        transparent 100%
+      );
+      opacity: 0;
+      transition: opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #matrixCanvas.revealed {
+      opacity: 0.5;
+    }
 </style>
 
 </head>
 <body>
+  <canvas id="matrixCanvas"></canvas>
   <canvas id="matrixCanvas"></canvas>
   <!-- HUD Frame -->
   <div class="hud-frame">
@@ -1719,6 +1746,7 @@
       <a href="#hero" class="dock-item" data-i18n="nav_1">Home</a>
       <a href="#architect" class="dock-item" data-i18n="nav_2">About</a>
       <a href="#solutions" class="dock-item" data-i18n="nav_3">Services</a>
+      <button class="dock-item" id="muteRainBtn" aria-label="Toggle Atmosphere" style="background: none; border: none; font: inherit; cursor: none;">🌧️</button>
       <a href="#contact" class="shimmer-btn magnetic-btn">
         <span class="shimmer-btn-bg"></span>
         <span class="ripple-effect"></span>
@@ -2379,6 +2407,233 @@
       dockPanel.classList.toggle('open');
     });
   }
+  // ═══════════════════════════════════════════════════════════
+  //  AURA ATMOSPHERE — Multi-Depth Data Rain Engine
+  //  Three parallax planes · luminance falloff · DPR-aware
+  // ═══════════════════════════════════════════════════════════
+  (function initAuraAtmosphere() {
+    const canvas = document.getElementById('matrixCanvas');
+    if (!canvas) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let isMuted = false;
+    const muteBtn = document.getElementById('muteRainBtn');
+    if (muteBtn) {
+      muteBtn.addEventListener('click', () => {
+        isMuted = !isMuted;
+        muteBtn.style.opacity = isMuted ? '0.3' : '1';
+        if (isMuted) {
+          canvas.classList.remove('revealed');
+          setTimeout(() => {
+            if (isMuted && rafId) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+          }, 2400); // Wait for transition
+        } else {
+          canvas.classList.add('revealed');
+          if (!rafId) {
+            lastTime = performance.now();
+            rafId = requestAnimationFrame(frame);
+          }
+        }
+      });
+    }
+
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const DPR = Math.min(window.devicePixelRatio || 1, 2); // cap for perf
+
+    // ── Palette (locked to brand) ──
+    const COLORS = {
+      bg:      '#1c0f1b',
+      lead:    '#e9d5ff',   // bright head glyph
+      body:    'rgba(168, 85, 247, 0.55)',  // trail body — brand purple
+      far:     'rgba(192, 132, 252, 0.18)', // distant plane — barely there
+      accent:  'rgba(0, 240, 255, 0.9)',    // rare HUD-cyan accent
+      accentChance: 0.02
+    };
+
+    // ── Depth planes: far = slow & dim, near = fast & bright ──
+    const PLANES = [
+      { speed: 0.35, fontSize: 12, opacity: 0.25, density: 0.06, blur: 0   },
+      { speed: 0.65, fontSize: 16, opacity: 0.55, density: 0.10, blur: 0   },
+      { speed: 1.15, fontSize: 22, opacity: 0.95, density: 0.14, blur: 0.5 }
+    ];
+
+    const CHARS = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789';
+    let streams = [];
+    let W = 0, H = 0;
+    let scrollVelocity = 0;
+    let lastScrollY = window.scrollY;
+
+    // ── Stream model: each column is an independent entity with
+    //    its own lifecycle (spawn → fall → die), not an infinite loop.
+    //    This produces organic, uneven density — the key to "expensive" feel.
+    function buildStreams() {
+      W = canvas.width;
+      H = canvas.height;
+      streams = [];
+      PLANES.forEach((plane, pi) => {
+        const cols = Math.ceil(W / (plane.fontSize * 1.6)); // 1.6 = horizontal breathing room
+        for (let c = 0; c < cols; c++) {
+          if (Math.random() < 1 - plane.density * 8) continue; // sparse seeding
+          streams.push(spawnStream(pi, plane, c, true));
+        }
+      });
+    }
+
+    function spawnStream(planeIdx, plane, col, initial) {
+      const glyphCount = 8 + Math.floor(Math.random() * 18); // stream length varies
+      return {
+        plane: planeIdx,
+        col: col,
+        x: col * plane.fontSize * 1.6,
+        y: initial
+          ? Math.random() * H * -1.5            // pre-scatter above viewport
+          : -glyphCount * plane.fontSize,
+        glyphs: glyphCount,
+        speed: plane.speed * (22 + Math.random() * 30), // px/sec, per-stream variance
+        life: 0,
+        maxLife: 300 + Math.random() * 400,    // frames before respawn elsewhere
+        chars: Array.from({ length: glyphCount }, () =>
+          CHARS[Math.floor(Math.random() * CHARS.length)])
+      };
+    }
+
+    function resize() {
+      canvas.width  = W = Math.floor(window.innerWidth * DPR);
+      canvas.height = H = Math.floor(window.innerHeight * DPR);
+      canvas.style.width  = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      buildStreams();
+      // Paint base
+      ctx.fillStyle = COLORS.bg;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    // Pre-render glow sprite for the head glyph — avoids shadowBlur per frame
+    // (shadowBlur is the #1 canvas perf killer; sprites are ~10x faster)
+    const headSprite = document.createElement('canvas');
+    function buildHeadSprite(size, color, glowColor) {
+      const pad = size * 2;
+      headSprite.width = headSprite.height = pad * 2;
+      const c = headSprite.getContext('2d');
+      c.font = `${size}px 'Space Grotesk', monospace`;
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      c.shadowColor = glowColor;
+      c.shadowBlur = size * 1.2;
+      c.fillStyle = color;
+      c.fillText('0', pad, pad);
+      return headSprite;
+    }
+
+    let lastTime = performance.now();
+    let rafId = null;
+    function frame(now) {
+      if (isMuted && !canvas.classList.contains('revealed') && window.getComputedStyle(canvas).opacity === '0') {
+         // Stop rendering fully if muted and faded out
+         return;
+      }
+      
+      const dt = Math.min((now - lastTime) / 1000, 0.05); // clamp for tab-switch
+      lastTime = now;
+
+      // Scroll-reactive: scrolling accelerates the world slightly
+      const scrollDelta = Math.abs(window.scrollY - lastScrollY);
+      lastScrollY = window.scrollY;
+      const velocityBoost = 1 + Math.min(scrollDelta * 0.02, 0.8);
+
+      // Fade pass — translucent bg paint for trails
+      ctx.fillStyle = 'rgba(28, 15, 27, 0.08)';
+      ctx.fillRect(0, 0, W, H);
+
+      for (let i = streams.length - 1; i >= 0; i--) {
+        const s = streams[i];
+        const plane = PLANES[s.plane];
+        s.life++;
+        s.y += s.speed * dt * 60 * velocityBoost;
+
+        const headY = s.y;
+        const fadeEdge = Math.min(s.life / 40, 1) * // fade-in on spawn
+                         Math.min((s.maxLife - s.life) / 40, 1); // fade-out on death
+
+        if (fadeEdge <= 0) {
+          streams.splice(i, 1);
+          // Respawn in a random column on a random plane
+          const pi = Math.floor(Math.random() * PLANES.length);
+          const p = PLANES[pi];
+          streams.push(spawnStream(pi, p, Math.floor(Math.random() * (W / (p.fontSize * 1.6))), false));
+          continue;
+        }
+
+        // Draw glyphs from tail to head
+        ctx.font = `${plane.fontSize * DPR}px monospace`;
+        for (let g = 0; g < s.chars.length; g++) {
+          const gy = headY - g * plane.fontSize * DPR;
+          if (gy < -plane.fontSize || gy > H) continue;
+
+          if (g === 0) {
+            // Head: bright, glowing
+            ctx.globalAlpha = plane.opacity * fadeEdge;
+            ctx.shadowColor = plane.blur ? 'rgba(168, 85, 247, 0.8)' : 'transparent';
+            ctx.shadowBlur = plane.blur ? 10 : 0;
+            ctx.fillStyle = s.life % 180 < 6 ? COLORS.accent : COLORS.lead;
+            ctx.fillText(s.chars[g], s.x, gy);
+            ctx.shadowBlur = 0;
+          } else {
+            // Body: dim trail, fading with distance from head
+            const trailFade = 1 - g / s.chars.length;
+            ctx.globalAlpha = plane.opacity * fadeEdge * trailFade * 0.5;
+            ctx.fillStyle = COLORS.body;
+            ctx.fillText(s.chars[g], s.x, gy);
+          }
+        }
+        ctx.globalAlpha = 1;
+      }
+
+      rafId = requestAnimationFrame(frame);
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else if (!rafId && !isMuted) {
+        lastTime = performance.now();
+        rafId = requestAnimationFrame(frame);
+      }
+    });
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        resize();
+        if (!isMuted) {
+            rafId = requestAnimationFrame(frame);
+        }
+      }, 200);
+    });
+
+    window.addEventListener('load', () => {
+      resize();
+      // Cinematic reveal — rain fades in after first paint
+      setTimeout(() => { if(!isMuted) canvas.classList.add('revealed') }, 400);
+      rafId = requestAnimationFrame(frame);
+    });
+    
+    // Pointer response
+    window.addEventListener('click', (e) => {
+      if (isMuted) return;
+      const p = PLANES[1];
+      streams.push(spawnStream(1, p, Math.floor(e.clientX / (p.fontSize * 1.6)), false));
+      streams[streams.length - 1].y = e.clientY - 200;
+    });
+
+  })();
 </script>
 </body>
 </html>
