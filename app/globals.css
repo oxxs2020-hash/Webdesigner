@@ -1399,7 +1399,7 @@
     /* Hero Responsive Overrides */
     .hero-title-container {
       position: absolute;
-      top: 4rem;
+      top: 10rem;
       left: 250px;
       right: 50vw;
       height: 100px;
@@ -1410,7 +1410,7 @@
     }
     
     .hero-title-text {
-      font-size: 3.75rem;
+      font-size: 5rem;
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0.15em;
@@ -1431,12 +1431,12 @@
       opacity: 0.8;
       pointer-events: none;
       mix-blend-mode: screen;
-      width: 50vw; /* Reverted back to 50vw for desktop */
+      width: 70vw; /* Increased from 50vw to make it 40% larger */
     }
     
     .hero-img-element {
       width: 100%;
-      height: 90vh; /* Reverted back to 90vh for desktop */
+      height: 126vh; /* Increased from 90vh to make it 40% larger */
       object-fit: contain;
       object-position: bottom right;
     }
