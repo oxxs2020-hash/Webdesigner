@@ -1445,7 +1445,7 @@
       .hero-title-container {
         left: 0;
         right: 0;
-        top: 2rem;
+        top: 6rem;
         padding: 0 1rem;
       }
       .hero-title-text {
@@ -1457,11 +1457,15 @@
       }
       .hero-profile-image {
         width: 100vw;
-        top: 25vh;
-        opacity: 0.3;
+        top: 20vh;
+        opacity: 0.5;
+      }
+      .hero-img-element {
+        height: 75vh;
+        object-position: center bottom;
       }
       .hero-content {
-        margin-top: 30vh !important;
+        margin-top: 40vh !important;
         text-align: center !important;
       }
       .dock-container {
