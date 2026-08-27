@@ -139,7 +139,7 @@ export default function Home() {
       "de": "Visionärer Designer und Ingenieur hinter Aura Agency. Spezialisiert auf hochgradig interaktive, zukunftsweisende Web-Architekturen."
     },
     "solutions_badge": { "en": "Our Services", "es": "Catálogo de Servicios", "de": "Leistungsübersicht" },
-    "solutions_title": { "en": "Designed with Passion.", "es": "Ingeniería de Precisión.", "de": "Mit höchster Präzision entwickelt." },
+    "solutions_title": { "en": "Designed with Passion", "es": "Ingeniería de Precisión", "de": "Mit höchster Präzision entwickelt" },
     "card1_title": { "en": "Modern Web Builds", "es": "Desarrollo Web de Élite", "de": "Elite Web-Entwicklung" },
     "card1_desc": {
       "en": "Building modern websites from the ground up with instant performance, clean code base, and striking futuristic visuals.",
@@ -841,7 +841,7 @@ export default function Home() {
         </div>
         <div className="about-content float-1">
           <div className="badge" data-i18n="about_badge">Lead Web Designer</div>
-          <h2 className="section-title" data-scramble>Oscar Otero Alvarez.</h2>
+          <h2 className="section-title text-ocean-waves" data-scramble>Oscar Otero Alvarez</h2>
           <p className="about-desc" data-i18n="about_desc">
             Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web experiences tailored for creative brands and modern businesses. By fusing visual fidelity with deep technical optimization, I build platforms that define the digital edge.
           </p>
@@ -852,7 +852,7 @@ export default function Home() {
     <section id="solutions" className="bento-section">
       <div className="section-header">
         <div className="badge" data-i18n="solutions_badge">Our Services</div>
-        <h2 className="section-title" data-scramble data-i18n="solutions_title">Designed with Passion.</h2>
+        <h2 className="section-title text-ocean-waves" data-scramble data-i18n="solutions_title">Designed with Passion</h2>
       </div>
 
       <div className="bento-grid float-2">
