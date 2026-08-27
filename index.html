@@ -2055,9 +2055,9 @@
       "de": "AURA AGENCY // OSCAR OTERO ALVAREZ"
     },
     "hero_title": {
-      "en": "<span class='font-antique text-wavy-purple'>Aura Agency</span><br><span class='text-ocean-waves'>We create<br>high design<br>web pages.</span>",
-      "es": "<span class='font-antique text-wavy-purple'>Aura Agency</span><br><span class='text-ocean-waves'>Creamos<br>páginas web de<br>alto diseño.</span>",
-      "de": "<span class='font-antique text-wavy-purple'>Aura Agency</span><br><span class='text-ocean-waves'>Wir erstellen<br>Webseiten mit<br>hohem Design.</span>"
+      "en": "<span class='font-antique text-wavy-purple' data-scramble>Aura Agency</span><br><span class='text-ocean-waves'><span data-scramble>We create</span><br><span data-scramble>high design</span><br><span data-scramble>web pages.</span></span>",
+      "es": "<span class='font-antique text-wavy-purple' data-scramble>Aura Agency</span><br><span class='text-ocean-waves'><span data-scramble>Creamos</span><br><span data-scramble>páginas web de</span><br><span data-scramble>alto diseño.</span></span>",
+      "de": "<span class='font-antique text-wavy-purple' data-scramble>Aura Agency</span><br><span class='text-ocean-waves'><span data-scramble>Wir erstellen</span><br><span data-scramble>Webseiten mit</span><br><span data-scramble>hohem Design.</span></span>"
     },
     "hero_desc": {
       "en": "Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.",
@@ -2168,6 +2168,33 @@
 
   let currentLang = localStorage.getItem('lang') || 'en';
   let t = (obj) => obj[currentLang] || obj.en;
+  
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+
+  function initScramble() {
+    document.querySelectorAll('[data-scramble]').forEach(el => {
+      if (el.dataset.scrambleInit) return;
+      if (!el.innerText || el.querySelector('br')) return; // skip elements containing HTML
+      el.dataset.scrambleInit = 'true';
+      const originalText = el.innerText;
+
+      el.addEventListener('mouseenter', () => {
+        if (reducedMotion) return;
+        let iteration = 0;
+        clearInterval(el.dataset.interval);
+
+        el.dataset.interval = setInterval(() => {
+          el.innerText = originalText.split("").map((letter, index) => {
+            if (index < iteration) return originalText[index];
+            return letters[Math.floor(Math.random() * letters.length)];
+          }).join("");
+
+          if (iteration >= originalText.length) clearInterval(el.dataset.interval);
+          iteration += 1 / 2;
+        }, 20);
+      });
+    });
+  }
 
   function applyTranslations() {
     document.documentElement.lang = currentLang;
@@ -2192,6 +2219,8 @@
     const invLabel = document.querySelector('#scopeEstimate .estimate-item:last-child .estimate-label');
     if (tlLabel) tlLabel.textContent = t(intakeStrings.estTimelineLabel);
     if (invLabel) invLabel.textContent = t(intakeStrings.estInvestmentLabel);
+    
+    initScramble();
   }
 
   function setLang(lang, btn) {
@@ -2209,29 +2238,6 @@
     b.classList.toggle('active', b.textContent.trim().toLowerCase() === currentLang);
   });
   applyTranslations();
-
-  // 4. Decrypt / Scramble Text Effect — only for plain-text elements
-  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-  document.querySelectorAll('[data-scramble]').forEach(el => {
-    if (!el.innerText || el.querySelector('br')) return; // skip elements containing HTML
-    const originalText = el.innerText;
-
-    el.addEventListener('mouseenter', () => {
-      if (reducedMotion) return;
-      let iteration = 0;
-      clearInterval(el.dataset.interval);
-
-      el.dataset.interval = setInterval(() => {
-        el.innerText = originalText.split("").map((letter, index) => {
-          if (index < iteration) return originalText[index];
-          return letters[Math.floor(Math.random() * letters.length)];
-        }).join("");
-
-        if (iteration >= originalText.length) clearInterval(el.dataset.interval);
-        iteration += 1 / 2;
-      }, 20);
-    });
-  });
 
   // 5. Conversational Intake Flow — with persistence of answers + mailto handoff
   let step = 1;
