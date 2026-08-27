@@ -527,7 +527,8 @@
 
     .hero-desc {
       font-size: 1.15rem;
-      color: var(--muted);
+      color: #e5ff00; /* Neon yellow */
+      text-shadow: 0 0 5px rgba(229, 255, 0, 0.4);
       line-height: 1.6;
       margin-bottom: 2.5rem;
       font-weight: 300;
@@ -685,7 +686,8 @@
     }
 
     .bento-card p {
-      color: var(--muted);
+      color: #e5ff00; /* Neon yellow */
+      text-shadow: 0 0 5px rgba(229, 255, 0, 0.4);
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.6;
@@ -856,7 +858,8 @@
 
     .about-desc {
       font-size: 1.15rem;
-      color: var(--muted);
+      color: #e5ff00; /* Neon yellow */
+      text-shadow: 0 0 5px rgba(229, 255, 0, 0.4);
       line-height: 1.7;
       margin-top: 1.5rem;
       font-weight: 300;
