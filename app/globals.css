@@ -1398,7 +1398,7 @@
 
     /* Hero Responsive Overrides */
     .hero-title-container {
-      position: fixed;
+      position: absolute;
       top: 4rem;
       left: 250px;
       right: 50vw;
