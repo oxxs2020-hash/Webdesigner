@@ -1426,7 +1426,7 @@
     .hero-profile-image {
       position: absolute;
       top: 10vh;
-      right: 15%; /* Moved 15% away from the right edge */
+      right: 2vw; /* Added a small gap on the right side */
       z-index: 0;
       opacity: 0.8;
       pointer-events: none;
