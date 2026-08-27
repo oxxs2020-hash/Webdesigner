@@ -735,9 +735,9 @@ export default function Home() {
         <button className="lang-btn" data-onclick="setLang('de')">DE</button>
       </div>
   </div>
-  <div style={{ position: "fixed", top: "4rem", left: "250px", right: "50vw", height: "100px", zIndex: "100", display: "flex", justifyContent: "center", alignItems: "center" }}>
-    <div className="text-neon-wavy-blue" style={{ fontSize: '3.75rem', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.1' }}>
-      <span style={{ paddingLeft: '0.9em' }}>AURA</span>
+  <div className="hero-title-container">
+    <div className="text-neon-wavy-blue hero-title-text">
+      <span className="aura-span">AURA</span>
       <span>AGENCY</span>
     </div>
   </div>
@@ -789,7 +789,7 @@ export default function Home() {
         <div className="liquid-blob blob-2"></div>
         <div className="liquid-blob blob-3"></div>
       </div>
-      <div style={{ position: 'absolute', top: '10vh', right: '0', zIndex: 0, opacity: 0.8, pointerEvents: 'none', mixBlendMode: 'screen', width: '50vw' }}>
+      <div className="hero-profile-image">
         <img src="/oscar_profile.jpg" alt="Oscar Profile" style={{ width: '100%', height: '90vh', objectFit: 'contain' }} />
       </div>
       <div className="hero-content float-1" style={{ zIndex: 1, position: "relative", textAlign: 'left', marginTop: '10vh' }}>

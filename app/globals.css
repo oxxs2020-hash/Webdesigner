@@ -1396,6 +1396,98 @@
       }
     }
 
+    /* Hero Responsive Overrides */
+    .hero-title-container {
+      position: fixed;
+      top: 4rem;
+      left: 250px;
+      right: 50vw;
+      height: 100px;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .hero-title-text {
+      font-size: 3.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.1;
+    }
+    .hero-title-text .aura-span {
+      padding-left: 0.9em;
+    }
+    
+    .hero-profile-image {
+      position: absolute;
+      top: 10vh;
+      right: 0;
+      z-index: 0;
+      opacity: 0.8;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      width: 50vw;
+    }
+
+    @media (max-width: 768px) {
+      .hero-title-container {
+        left: 0;
+        right: 0;
+        top: 2rem;
+        padding: 0 1rem;
+      }
+      .hero-title-text {
+        font-size: 2.2rem;
+        align-items: center;
+      }
+      .hero-title-text .aura-span {
+        padding-left: 0;
+      }
+      .hero-profile-image {
+        width: 100vw;
+        top: 25vh;
+        opacity: 0.3;
+      }
+      .hero-content {
+        margin-top: 30vh !important;
+        text-align: center !important;
+      }
+      .dock-container {
+        top: auto;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        justify-content: center;
+      }
+      .dock {
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        padding: 0.75rem;
+        justify-content: space-around;
+        border-radius: 20px;
+      }
+      .dock.open {
+        flex-direction: column;
+        align-items: center;
+      }
+      .dock-item {
+        display: none;
+      }
+      .dock.open .dock-item {
+        display: flex;
+      }
+      .dock-expand-trigger {
+        display: flex;
+      }
+    }
+
     /* ═══ SKIPER UI: Spotlight Bento Grid ═══ */
     .bento-grid {
       --grid-mouse-x: -999px;
