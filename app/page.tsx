@@ -113,14 +113,14 @@ export default function Home() {
       "de": "AURA AGENCY // WEB-ARCHITEKTUR"
     },
     "hero_badge": {
-      "en": "AURA AGENCY // OSCAR OTERO ALVAREZ",
-      "es": "AURA AGENCY // OSCAR OTERO ALVAREZ",
-      "de": "AURA AGENCY // OSCAR OTERO ALVAREZ"
+      "en": "<span style='color: #39ff14; text-shadow: 0 0 5px rgba(57,255,20,0.5), 0 0 10px rgba(57,255,20,0.5);'>AURA AGENCY</span> <span style='color: #39ff14;'>/</span><span style='color: #1d4ed8;'>/</span> <span style='color: #1d4ed8; text-shadow: 0 0 5px rgba(29,78,216,0.5), 0 0 10px rgba(29,78,216,0.5);'>OSCAR OTERO ALVAREZ</span>",
+      "es": "<span style='color: #39ff14; text-shadow: 0 0 5px rgba(57,255,20,0.5), 0 0 10px rgba(57,255,20,0.5);'>AURA AGENCY</span> <span style='color: #39ff14;'>/</span><span style='color: #1d4ed8;'>/</span> <span style='color: #1d4ed8; text-shadow: 0 0 5px rgba(29,78,216,0.5), 0 0 10px rgba(29,78,216,0.5);'>OSCAR OTERO ALVAREZ</span>",
+      "de": "<span style='color: #39ff14; text-shadow: 0 0 5px rgba(57,255,20,0.5), 0 0 10px rgba(57,255,20,0.5);'>AURA AGENCY</span> <span style='color: #39ff14;'>/</span><span style='color: #1d4ed8;'>/</span> <span style='color: #1d4ed8; text-shadow: 0 0 5px rgba(29,78,216,0.5), 0 0 10px rgba(29,78,216,0.5);'>OSCAR OTERO ALVAREZ</span>"
     },
     "hero_title": {
-      "en": "<span class='font-antique text-wavy-purple' data-scramble>Aura Agency</span><br><span class='text-ocean-waves'><span data-scramble>We create</span><br><span data-scramble>high design</span><br><span data-scramble>web pages.</span></span>",
-      "es": "<span class='font-antique text-wavy-purple' data-scramble>Aura Agency</span><br><span class='text-ocean-waves'><span data-scramble>Creamos</span><br><span data-scramble>páginas web de</span><br><span data-scramble>alto diseño.</span></span>",
-      "de": "<span class='font-antique text-wavy-purple' data-scramble>Aura Agency</span><br><span class='text-ocean-waves'><span data-scramble>Wir erstellen</span><br><span data-scramble>Webseiten mit</span><br><span data-scramble>hohem Design.</span></span>"
+      "en": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>We create</span><br><span data-scramble>high design</span><br><span data-scramble>web pages</span></span>",
+      "es": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>Creamos</span><br><span data-scramble>páginas web de</span><br><span data-scramble>alto diseño</span></span>",
+      "de": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>Wir erstellen</span><br><span data-scramble>Webseiten mit</span><br><span data-scramble>hohem Design</span></span>"
     },
     "hero_desc": {
       "en": "Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.",
@@ -735,6 +735,12 @@ export default function Home() {
         <button className="lang-btn" data-onclick="setLang('de')">DE</button>
       </div>
   </div>
+  <div style={{ position: "fixed", top: "4rem", left: "250px", right: "50vw", height: "100px", zIndex: "100", display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <div className="text-neon-wavy-blue" style={{ fontSize: '3.75rem', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.15em', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: '1.1' }}>
+      <span style={{ paddingLeft: '0.9em' }}>AURA</span>
+      <span>AGENCY</span>
+    </div>
+  </div>
 
 
   <div id="cursor-dot"></div>
@@ -777,19 +783,22 @@ export default function Home() {
   </div>
 
   <main>
-    <section id="hero" className="hero">
+    <section id="hero" className="hero" style={{ position: "relative" }}>
       <div className="liquid-bg">
         <div className="liquid-blob blob-1"></div>
         <div className="liquid-blob blob-2"></div>
         <div className="liquid-blob blob-3"></div>
       </div>
-      <div className="hero-content float-1" style={{ zIndex: 1, position: "relative" }}>
-        <div className="badge">
+      <div style={{ position: 'absolute', top: '10vh', right: '0', zIndex: 0, opacity: 0.8, pointerEvents: 'none', mixBlendMode: 'screen', width: '50vw' }}>
+        <img src="/oscar_profile.jpg" alt="Oscar Profile" style={{ width: '100%', height: '90vh', objectFit: 'contain' }} />
+      </div>
+      <div className="hero-content float-1" style={{ zIndex: 1, position: "relative", textAlign: 'left', marginTop: '10vh' }}>
+        <div className="badge" style={{ marginBottom: '2rem' }}>
           <span className="badge-indicator"></span>
-          <span data-i18n="hero_badge">AURA AGENCY // OSCAR OTERO ALVAREZ</span>
+          <span data-i18n="hero_badge" dangerouslySetInnerHTML={{ __html: "<span style='color: #39ff14; text-shadow: 0 0 5px rgba(57,255,20,0.5), 0 0 10px rgba(57,255,20,0.5);'>AURA AGENCY</span> <span style='color: #39ff14;'>/</span><span style='color: #1d4ed8;'>/</span> <span style='color: #1d4ed8; text-shadow: 0 0 5px rgba(29,78,216,0.5), 0 0 10px rgba(29,78,216,0.5);'>OSCAR OTERO ALVAREZ</span>" }}></span>
         </div>
-        <h1 className="hero-title" data-i18n="hero_title">Creative Web Design.</h1>
-        <p className="hero-desc" data-i18n="hero_desc">
+        <h1 className="hero-title" data-i18n="hero_title" style={{ textAlign: 'left', margin: 0 }}>Creative Web Design</h1>
+        <p className="hero-desc" data-i18n="hero_desc" style={{ marginTop: '3rem' }}>
           Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.
         </p>
         <div className="hero-actions">
