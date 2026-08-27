@@ -6,7 +6,7 @@
   <title data-i18n="title">AURA AGENCY // WEB DESIGN</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Syne:wght@700;800&family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #1c0f1b;
@@ -228,7 +228,7 @@
 
     .hero-content {
       max-width: 500px;
-      margin-top: 5rem;
+      margin-top: 1rem;
     }
 
     .badge {
@@ -269,17 +269,77 @@
       to { background-position: 200% center; }
     }
 
+    .font-antique {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.5em;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .text-wavy-purple {
+      background: linear-gradient(45deg, #a855f7, #d8b4fe, #a855f7, #c084fc);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientWave 4s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    .text-ocean-waves {
+      background: linear-gradient(180deg, #3b82f6, #06b6d4, #0284c7, #3b82f6);
+      background-size: 100% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: oceanWave 6s ease-in-out infinite;
+    }
+
+    @keyframes gradientWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes oceanWave {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 0% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+
     .badge-indicator {
       width: 12px;
       height: 12px;
       background: #b829ff;
+      border-radius: 50%;
       box-shadow: 0 0 16px #b829ff;
-      animation: sciFiBlink 1.5s step-end infinite;
+      position: relative;
     }
 
-    @keyframes sciFiBlink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    .badge-indicator::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(184, 41, 255, 0.6);
+      animation: waveOut 2s infinite ease-out;
+    }
+    
+    @keyframes waveOut {
+      0% {
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+      }
+      100% {
+        width: 400%;
+        height: 400%;
+        opacity: 0;
+      }
     }
 
     @keyframes pulse {
@@ -1691,7 +1751,7 @@
           <span class="badge-indicator"></span>
           <span data-i18n="hero_badge">AURA AGENCY // OSCAR OTERO ALVAREZ</span>
         </div>
-        <h1 class="hero-title" data-scramble data-i18n="hero_title">Creative Web Design.</h1>
+        <h1 class="hero-title" data-i18n="hero_title">Creative Web Design.</h1>
         <p class="hero-desc" data-i18n="hero_desc">
           Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.
         </p>
@@ -1865,13 +1925,18 @@
   </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script>
-    // 1. Reactive Skiper Smooth Cursor
-    const dot = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    let ringPos = { x: mouse.x, y: mouse.y };
+<script>
+  // ─── Device capability flags ───
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // 1. Reactive Skiper Smooth Cursor
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  let ringPos = { x: mouse.x, y: mouse.y };
+
+  if (finePointer && dot && ring) {
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
@@ -1888,16 +1953,17 @@
     }
     updateCursor();
 
-    const hoverables = document.querySelectorAll('a, button, input, .bento-card');
-    hoverables.forEach(el => {
+    document.querySelectorAll('a, button, input, .bento-card').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
     });
+  }
 
-    // 2. Skiper Proximity Dock Magnification
-    const dock = document.getElementById('dynamicDock');
-    const dockItems = dock.querySelectorAll('.dock-item');
+  // 2. Skiper Proximity Dock Magnification
+  const dock = document.getElementById('dynamicDock');
+  const dockItems = dock.querySelectorAll('.dock-item');
 
+  if (finePointer && !reducedMotion) {
     dock.addEventListener('mousemove', (e) => {
       dockItems.forEach(item => {
         const rect = item.getBoundingClientRect();
@@ -1909,455 +1975,410 @@
     });
 
     dock.addEventListener('mouseleave', () => {
-      dockItems.forEach(item => {
-        item.style.transform = 'scale(1)';
-      });
+      dockItems.forEach(item => { item.style.transform = 'scale(1)'; });
     });
-
-    // 3. Bento Radiant Border + Gyroscopic 3D Tilt (Enhanced Cross-Card)
-    const bentoGrid = document.querySelector('.bento-grid');
-    const bentoCards = document.querySelectorAll('.bento-card');
-    
-    if (bentoGrid) {
-      bentoGrid.addEventListener('mousemove', (e) => {
-        bentoCards.forEach(card => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-          
-          const specX = 100 - (x / rect.width * 100);
-          const specY = 100 - (y / rect.height * 100);
-          card.style.setProperty('--spec-x', `${specX}%`);
-          card.style.setProperty('--spec-y', `${specY}%`);
-        });
-      });
-      
-      bentoCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          
-          const rotateX = ((y / rect.height) - 0.5) * -10;
-          const rotateY = ((x / rect.width) - 0.5) * 10;
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        });
-      });
-    }
-
-    // 4. Decrypt / Scramble Text Effect on Entry
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-    document.querySelectorAll('[data-scramble]').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        let iteration = 0;
-        const originalText = el.classList.contains('hero-title') ? 'Aura Agency. We create high design webpages.' : el.innerText;
-        clearInterval(el.dataset.interval);
-
-        el.dataset.interval = setInterval(() => {
-          el.innerText = originalText.split("").map((letter, index) => {
-            if (index < iteration) return originalText[index];
-            return letters[Math.floor(Math.random() * letters.length)];
-          }).join("");
-
-          if (iteration >= originalText.length) {
-            clearInterval(el.dataset.interval);
-          }
-          iteration += 1 / 2;
-        }, 20);
-      });
-    });
-
-    // 5. WebGL removed in favor of image background
-
-    
-    // --- Translations ---
-    const translations = {
-  "title": {
-    "en": "AURA AGENCY // WEB DESIGN",
-    "es": "AURA AGENCY // ARQUITECTURA WEB",
-    "de": "AURA AGENCY // WEB-ARCHITEKTUR"
-  },
-  "hero_badge": {
-    "en": "AURA AGENCY // OSCAR OTERO ALVAREZ",
-    "es": "AURA AGENCY // OSCAR OTERO ALVAREZ",
-    "de": "AURA AGENCY // OSCAR OTERO ALVAREZ"
-  },
-  "hero_title": {
-    "en": "Aura Agency.<br>We create<br>high design<br>web pages.",
-    "es": "Aura Agency.<br>Creamos<br>páginas web de<br>alto diseño.",
-    "de": "Aura Agency.<br>Wir erstellen<br>Webseiten mit<br>hohem Design."
-  },
-  "hero_desc": {
-    "en": "Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.",
-    "es": "Diseñamos sitios web a medida y potenciamos plataformas existentes con ingeniería orientada a la conversión. Creado para marcas que exigen experiencias digitales de primer nivel.",
-    "de": "Wir entwickeln ma\u00dfgeschneiderte Websites und transformieren bestehende Plattformen mit modernstem Design und hochkonvertierender Technologie. Ma\u00dfgeschneidert f\u00fcr Marken, die digitale Exzellenz fordern."
-  },
-  "hero_btn_1": {
-    "en": "Start a Project",
-    "es": "Iniciar Proyecto",
-    "de": "Projekt starten"
-  },
-  "hero_btn_2": {
-    "en": "View Capabilities",
-    "es": "Ver Servicios",
-    "de": "Leistungen ansehen"
-  },
-  "nav_1": {
-    "en": "Home",
-    "es": "Inicio",
-    "de": "Start"
-  },
-  "nav_2": {
-    "en": "About",
-    "es": "Arquitecto",
-    "de": "Architekt"
-  },
-  "nav_3": {
-    "en": "Services",
-    "es": "Soluciones",
-    "de": "L\u00f6sungen"
-  },
-  "nav_4": {
-    "en": "Start a Project &rarr;",
-    "es": "Iniciar Proyecto &rarr;",
-    "de": "Projekt starten &rarr;"
-  },
-  "mq_1": {
-    "en": "Custom Web Design",
-    "es": "Dise\u00f1o Web a Medida",
-    "de": "Individuelles Webdesign"
-  },
-  "mq_2": {
-    "en": "Futuristic UI/UX",
-    "es": "UI/UX Futurista",
-    "de": "Futuristische UI/UX"
-  },
-  "mq_3": {
-    "en": "Fluid Micro-Interactions",
-    "es": "Micro-interacciones Fluidas",
-    "de": "Fl\u00fcssige Mikro-Interaktionen"
-  },
-  "mq_4": {
-    "en": "Website Revamps",
-    "es": "Renovaci\u00f3n de Sitios",
-    "de": "Website-Relaunches"
-  },
-  "mq_5": {
-    "en": "Conversion Optimization",
-    "es": "Optimizaci\u00f3n de Conversi\u00f3n",
-    "de": "Conversion-Optimierung"
-  },
-  "about_badge": {
-    "en": "Lead Web Designer",
-    "es": "Arquitecto Principal",
-    "de": "Chefarchitekt"
-  },
-  "about_desc": {
-    "en": "Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web experiences tailored for creative brands and modern businesses. By fusing visual fidelity with deep technical optimization, I build platforms that define the digital edge.",
-    "es": "Diseñador e ingeniero con visión de futuro al frente de Aura Agency. Especializado en arquitecturas web altamente interactivas y de estética futurista, concebidas para marcas de élite y empresas con mentalidad innovadora. Fusionando calidad visual con optimización técnica avanzada, construyo plataformas que marcan la vanguardia digital.",
-    "de": "Vision\u00e4rer Designer und Ingenieur hinter Aura Agency. Spezialisiert auf hochgradig interaktive, zukunftsweisende Web-Architekturen, ma\u00dfgeschneidert f\u00fcr Elite-Marken und innovative Unternehmen. Indem ich visuelle Perfektion mit tiefgreifender technischer Optimierung vereine, erschaffe ich Plattformen, die digitale Ma\u00dfst\u00e4be setzen."
-  },
-  "solutions_badge": {
-    "en": "Our Services",
-    "es": "Catálogo de Servicios",
-    "de": "Leistungs\u00fcbersicht"
-  },
-  "solutions_title": {
-    "en": "Designed with Passion.",
-    "es": "Ingeniería de Precisión.",
-    "de": "Mit h\u00f6chster Pr\u00e4zision entwickelt."
-  },
-  "card1_title": {
-    "en": "Modern Web Builds",
-    "es": "Desarrollo Web de Élite",
-    "de": "Elite Web-Entwicklung"
-  },
-  "card1_desc": {
-    "en": "Building modern websites from the ground up with instant performance, clean code base, and striking futuristic visuals.",
-    "es": "Creamos sitios web modernos desde cero con rendimiento instantáneo, arquitectura de código limpia y una estética visual futurista impactante.",
-    "de": "Entwicklung moderner Websites von Grund auf, mit herausragender Performance, sauberer Code-Architektur und beeindruckender visueller \u00c4sthetik."
-  },
-  "card1_tag1": {
-    "en": "[ SYSTEM SETUP ]",
-    "es": "[ ARQUITECTURA DE SISTEMAS ]",
-    "de": "[ SYSTEMARCHITEKTUR ]"
-  },
-  "card1_tag2": {
-    "en": "NEXT-GEN STACK",
-    "es": "TECNOLOGÍA DE ÚLTIMA GENERACIÓN",
-    "de": "NEXT-GEN STACK"
-  },
-  "card2_title": {
-    "en": "Next-Level Revamps",
-    "es": "Rediseños de Alto Nivel",
-    "de": "Premium Relaunches"
-  },
-  "card2_desc": {
-    "en": "Upgrading your current website with fluid micro-interactions, modern responsive layouts, and cutting-edge design techniques.",
-    "es": "Transformamos su sitio web actual con microinteracciones fluidas, diseños adaptables de última generación y técnicas de diseño de vanguardia.",
-    "de": "Aufwertung Ihrer bestehenden Website mit fl\u00fcssigen Mikro-Interaktionen, modernen responsiven Layouts und innovativen Design-Methoden."
-  },
-  "card2_tag1": {
-    "en": "[ KINETIC GRAPHICS ]",
-    "es": "[ GRÁFICOS EN MOVIMIENTO ]",
-    "de": "[ KINETISCHES DESIGN ]"
-  },
-  "card2_tag2": {
-    "en": "MODERN UPGRADES",
-    "es": "ACTUALIZACIONES MODERNAS",
-    "de": "MODERNE UPGRADES"
-  },
-  "card3_title": {
-    "en": "Conversion & Performance",
-    "es": "Conversi\u00f3n y Rendimiento",
-    "de": "Conversion & Performance"
-  },
-  "card3_desc": {
-    "en": "Re-engineering user interfaces and optimizing performance metrics to seamlessly turn visitors into loyal clients.",
-    "es": "Rediseño integral de interfaces y optimización de métricas de rendimiento para convertir visitantes en clientes fieles de forma fluida.",
-    "de": "Neustrukturierung von Benutzeroberfl\u00e4chen und Optimierung von Leistungskennzahlen, um Besucher nahtlos in treue Kunden zu verwandeln."
-  },
-  "card3_tag1": {
-    "en": "[ OPTIMIZATION ENGINE ]",
-    "es": "[ MOTOR DE OPTIMIZACI\u00d3N ]",
-    "de": "[ OPTIMIERUNGS-ENGINE ]"
-  },
-  "card3_tag2": {
-    "en": "HIGH CONVERSION",
-    "es": "ALTA CONVERSI\u00d3N",
-    "de": "HOHE CONVERSION"
-  },
-  "intake_phase": {
-    "en": "Phase 01 // Configuration",
-    "es": "Fase 01 // Configuraci\u00f3n",
-    "de": "Phase 01 // Konfiguration"
-  },
-  "intake_heading": {
-    "en": "Select your project scope:",
-    "es": "Seleccione el alcance de su proyecto:",
-    "de": "W\u00e4hlen Sie den Projektumfang:"
-  },
-  "pill_1": {
-    "en": "New Website Build",
-    "es": "Crear Sitio Web Nuevo",
-    "de": "Neue Website erstellen"
-  },
-  "pill_2": {
-    "en": "Website Upgrade / Revamp",
-    "es": "Rediseño / Renovación Web",
-    "de": "Website Upgrade / Relaunch"
-  },
-  "pill_3": {
-    "en": "Performance Optimization",
-    "es": "Optimizaci\u00f3n de Rendimiento",
-    "de": "Performance-Optimierung"
-  },
-  "pill_4": {
-    "en": "UI/UX Overhaul",
-    "es": "Rediseño Integral de UI/UX",
-    "de": "UI/UX-\u00dcberarbeitung"
-  },
-  "input_placeholder": {
-    "en": "Type or select an option above...",
-    "es": "Escriba o seleccione una opción...",
-    "de": "Tippen oder w\u00e4hlen Sie eine Option aus..."
-  },
-  "contact_bio": {
-    "en": "Designing & engineering high-performance web platforms for creative brands. Based in Vigo, Spain — available worldwide.",
-    "es": "Diseño e ingeniería de plataformas web de alto rendimiento para marcas de élite. Con base en Vigo, España — disponible a nivel mundial.",
-    "de": "Design & Entwicklung hochleistungsfähiger Web-Plattformen für Elite-Marken. Standort Vigo, Spanien — weltweit verfügbar."
   }
-};
-    
-    function setLang(lang) {
-      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[key] && translations[key][lang]) {
-          el.innerHTML = translations[key][lang];
-        }
-      });
-      
-      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.getAttribute('data-i18n-placeholder');
-        if (translations[key] && translations[key][lang]) {
-          el.placeholder = translations[key][lang];
-        }
-      });
-    }
 
-    // 6. Conversational Flow Logic
-    let step = 1;
-    function selectPill(btn) {
-      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('intakeInputField').value = btn.innerText;
-      
-      // Indicator logic
-      const indicator = document.getElementById('pillIndicator');
-      if (indicator) {
-        indicator.style.left = `${btn.offsetLeft}px`;
-        indicator.style.width = `${btn.offsetWidth}px`;
-        indicator.classList.add('visible');
-      }
-      
-      // Estimate logic
-      const estimatePanel = document.getElementById('scopeEstimate');
-      const estTimeline = document.getElementById('estTimeline');
-      const estInvestment = document.getElementById('estInvestment');
-      const scope = btn.dataset.scope;
-      
-      if (estimatePanel && scope) {
-        if (scope === 'build') {
-          estTimeline.innerHTML = '<span class="counter">6–10</span> weeks';
-          estInvestment.innerHTML = '€<span class="counter">4,000–8,000</span>';
-        } else if (scope === 'revamp') {
-          estTimeline.innerHTML = '<span class="counter">3–5</span> weeks';
-          estInvestment.innerHTML = '€<span class="counter">2,000–4,500</span>';
-        } else if (scope === 'optimize') {
-          estTimeline.innerHTML = '<span class="counter">2–3</span> weeks';
-          estInvestment.innerHTML = '€<span class="counter">1,500–3,000</span>';
-        }
-        estimatePanel.classList.add('visible');
-      }
-    }
+  // 3. Bento Radiant Border + 3D Tilt
+  const bentoGrid = document.querySelector('.bento-grid');
+  const bentoCards = document.querySelectorAll('.bento-card');
 
-    function submitIntake() {
-      const input = document.getElementById('intakeInputField');
-      const val = input.value.trim();
-      if (!val && step < 3) return;
+  if (bentoGrid && finePointer && !reducedMotion) {
+    bentoGrid.addEventListener('mousemove', (e) => {
+      bentoCards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-      if (step === 1) {
-        document.getElementById('intakePhase').innerText = 'Phase 02 // Timeline';
-        document.getElementById('intakeHeading').innerText = 'Target Launch Window:';
-        document.getElementById('pillGroup').innerHTML = `
-          <button class="pill" onclick="selectPill(this)">Under 30 Days</button>
-          <button class="pill" onclick="selectPill(this)">Next Quarter</button>
-          <button class="pill" onclick="selectPill(this)">Flexible</button>
-        `;
-        input.value = '';
-        input.placeholder = 'Select option or write timeline...';
-        step = 2;
-      } else if (step === 2) {
-        document.getElementById('intakePhase').innerText = 'Phase 03 // Handshake';
-        document.getElementById('intakeHeading').innerText = 'Forwarding Address:';
-        document.getElementById('pillGroup').innerHTML = '';
-        input.value = '';
-        input.placeholder = 'your.email@company.com';
-        step = 3;
-      } else if (step === 3) {
-        document.getElementById('intakePhase').innerText = 'Complete';
-        document.getElementById('intakeHeading').innerText = 'Parameters Logged. We will be in touch.';
-        document.getElementById('pillGroup').style.display = 'none';
-        document.querySelector('.intake-input-wrapper').style.display = 'none';
-      }
-    }
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
 
-    document.getElementById('intakeInputField').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') submitIntake();
-    });
-
-    // Add to your main <script> tag
-    document.addEventListener('DOMContentLoaded', () => {
-      const scopeButtons = document.querySelectorAll('.scope-option'); // add this class to your scope buttons
-      const emailLink = document.querySelector('a[href^="mailto:"]');
-
-      scopeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          scopeButtons.forEach(btn => btn.classList.remove('active'));
-          button.classList.add('active');
-          
-          const selectedScope = button.innerText.trim();
-          const subject = encodeURIComponent(`Project Inquiry: ${selectedScope}`);
-          const body = encodeURIComponent(`Hi Oscar,\n\nI am looking to start a project under the "${selectedScope}" scope. Let's discuss requirements and timeline.\n\nBest,`);
-          
-          if (emailLink) {
-            emailLink.href = `mailto:AURA.AGENCY.VIGO2026@GMAIL.COM?subject=${subject}&body=${body}`;
-          }
-        });
+        card.style.setProperty('--spec-x', `${100 - (x / rect.width * 100)}%`);
+        card.style.setProperty('--spec-y', `${100 - (y / rect.height * 100)}%`);
       });
     });
 
-    // ═════ SKIPER UI INTEGRATIONS ═════
+    bentoCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const rotateX = ((y / rect.height) - 0.5) * -10;
+        const rotateY = ((x / rect.width) - 0.5) * 10;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
 
-    // Velocity-aware Marquee
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+  }
+
+  // ─── Translations ───
+  const translations = {
+    "title": {
+      "en": "AURA AGENCY // WEB DESIGN",
+      "es": "AURA AGENCY // ARQUITECTURA WEB",
+      "de": "AURA AGENCY // WEB-ARCHITEKTUR"
+    },
+    "hero_badge": {
+      "en": "AURA AGENCY // OSCAR OTERO ALVAREZ",
+      "es": "AURA AGENCY // OSCAR OTERO ALVAREZ",
+      "de": "AURA AGENCY // OSCAR OTERO ALVAREZ"
+    },
+    "hero_title": {
+      "en": "<span class='font-antique text-wavy-purple'>Aura Agency.</span><br><span class='text-ocean-waves'>We create<br>high design<br>web pages.</span>",
+      "es": "<span class='font-antique text-wavy-purple'>Aura Agency.</span><br><span class='text-ocean-waves'>Creamos<br>páginas web de<br>alto diseño.</span>",
+      "de": "<span class='font-antique text-wavy-purple'>Aura Agency.</span><br><span class='text-ocean-waves'>Wir erstellen<br>Webseiten mit<br>hohem Design.</span>"
+    },
+    "hero_desc": {
+      "en": "Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.",
+      "es": "Diseñamos sitios web a medida y potenciamos plataformas existentes con ingeniería orientada a la conversión. Creado para marcas que exigen experiencias digitales de primer nivel.",
+      "de": "Wir entwickeln maßgeschneiderte Websites und transformieren bestehende Plattformen mit modernstem Design und hochkonvertierender Technologie."
+    },
+    "hero_btn_1": { "en": "Start a Project", "es": "Iniciar Proyecto", "de": "Projekt starten" },
+    "hero_btn_2": { "en": "View Capabilities", "es": "Ver Servicios", "de": "Leistungen ansehen" },
+    "nav_1": { "en": "Home", "es": "Inicio", "de": "Start" },
+    "nav_2": { "en": "About", "es": "Arquitecto", "de": "Architekt" },
+    "nav_3": { "en": "Services", "es": "Soluciones", "de": "Lösungen" },
+    "about_badge": { "en": "Lead Web Designer", "es": "Arquitecto Principal", "de": "Chefarchitekt" },
+    "about_desc": {
+      "en": "Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web experiences tailored for creative brands and modern businesses.",
+      "es": "Diseñador e ingeniero con visión de futuro al frente de Aura Agency. Especializado en arquitecturas web altamente interactivas y de estética futurista.",
+      "de": "Visionärer Designer und Ingenieur hinter Aura Agency. Spezialisiert auf hochgradig interaktive, zukunftsweisende Web-Architekturen."
+    },
+    "solutions_badge": { "en": "Our Services", "es": "Catálogo de Servicios", "de": "Leistungsübersicht" },
+    "solutions_title": { "en": "Designed with Passion.", "es": "Ingeniería de Precisión.", "de": "Mit höchster Präzision entwickelt." },
+    "card1_title": { "en": "Modern Web Builds", "es": "Desarrollo Web de Élite", "de": "Elite Web-Entwicklung" },
+    "card1_desc": {
+      "en": "Building modern websites from the ground up with instant performance, clean code base, and striking futuristic visuals.",
+      "es": "Creamos sitios web modernos desde cero con rendimiento instantáneo, arquitectura limpia y una estética futurista impactante.",
+      "de": "Entwicklung moderner Websites von Grund auf, mit herausragender Performance und beeindruckender Ästhetik."
+    },
+    "card1_tag2": { "en": "NEXT-GEN STACK →", "es": "TECNOLOGÍA DE ÚLTIMA GENERACIÓN →", "de": "NEXT-GEN STACK →" },
+    "card2_title": { "en": "Next-Level Revamps", "es": "Rediseños de Alto Nivel", "de": "Premium Relaunches" },
+    "card2_desc": {
+      "en": "Upgrading your current website with fluid micro-interactions, modern responsive layouts, and cutting-edge design techniques.",
+      "es": "Transformamos su sitio web actual con microinteracciones fluidas, diseños adaptables y técnicas de vanguardia.",
+      "de": "Aufwertung Ihrer bestehenden Website mit flüssigen Mikro-Interaktionen und modernen responsiven Layouts."
+    },
+    "card2_tag2": { "en": "MODERN UPGRADES →", "es": "ACTUALIZACIONES MODERNAS →", "de": "MODERNE UPGRADES →" },
+    "card3_title": { "en": "Conversion & Performance", "es": "Conversión y Rendimiento", "de": "Conversion & Performance" },
+    "card3_desc": {
+      "en": "Re-engineering user interfaces and optimizing performance metrics to seamlessly turn visitors into loyal clients.",
+      "es": "Rediseño integral de interfaces y optimización de métricas para convertir visitantes en clientes fieles.",
+      "de": "Neustrukturierung von Benutzeroberflächen, um Besucher nahtlos in treue Kunden zu verwandeln."
+    },
+    "card3_tag2": { "en": "HIGH CONVERSION →", "es": "ALTA CONVERSIÓN →", "de": "HOHE CONVERSION →" },
+    "intake_phase": { "en": "Phase 01 // Configuration", "es": "Fase 01 // Configuración", "de": "Phase 01 // Konfiguration" },
+    "intake_heading": { "en": "Select your project scope:", "es": "Seleccione el alcance de su proyecto:", "de": "Wählen Sie den Projektumfang:" },
+    "pill_1": { "en": "New Website Build", "es": "Crear Sitio Web Nuevo", "de": "Neue Website erstellen" },
+    "pill_2": { "en": "Website Upgrade / Revamp", "es": "Rediseño / Renovación Web", "de": "Website Upgrade / Relaunch" },
+    "pill_3": { "en": "Performance Optimization", "es": "Optimización de Rendimiento", "de": "Performance-Optimierung" },
+    "input_placeholder": {
+      "en": "Type or select an option above...",
+      "es": "Escriba o seleccione una opción...",
+      "de": "Tippen oder wählen Sie eine Option aus..."
+    },
+    "contact_bio": {
+      "en": "Designing & engineering high-performance web platforms for creative brands. Based in Vigo, Spain — available worldwide.",
+      "es": "Diseño e ingeniería de plataformas web de alto rendimiento para marcas de élite. Con base en Vigo, España — disponible mundialmente.",
+      "de": "Design & Entwicklung hochleistungsfähiger Web-Plattformen für Elite-Marken. Standort Vigo, Spanien — weltweit verfügbar."
+    }
+  };
+
+  // NEW: multi-language strings for the dynamic intake flow
+  const intakeStrings = {
+    phase2: {
+      en: 'Phase 02 // Timeline',
+      es: 'Fase 02 // Cronograma',
+      de: 'Phase 02 // Zeitplan'
+    },
+    heading2: {
+      en: 'Target Launch Window:',
+      es: 'Ventana de lanzamiento:',
+      de: 'Geplanter Launch-Zeitraum:'
+    },
+    timelinePills: {
+      en: ['Under 30 Days', 'Next Quarter', 'Flexible'],
+      es: ['Menos de 30 Días', 'Próximo Trimestre', 'Flexible'],
+      de: ['Unter 30 Tagen', 'Nächstes Quartal', 'Flexibel']
+    },
+    placeholder2: {
+      en: 'Select option or write timeline...',
+      es: 'Seleccione una opción o escriba el cronograma...',
+      de: 'Option wählen oder Zeitplan eingeben...'
+    },
+    phase3: {
+      en: 'Phase 03 // Handshake',
+      es: 'Fase 03 // Contacto',
+      de: 'Phase 03 // Kontakt'
+    },
+    heading3: {
+      en: 'Forwarding Address:',
+      es: 'Dirección de contacto:',
+      de: 'Kontaktadresse:'
+    },
+    emailPlaceholder: {
+      en: 'your.email@company.com',
+      es: 'tu.email@empresa.com',
+      de: 'ihre.email@firma.de'
+    },
+    invalidEmail: {
+      en: 'Please enter a valid email address.',
+      es: 'Por favor, introduzca un correo válido.',
+      de: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.'
+    },
+    done: {
+      en: 'Parameters Logged. We will be in touch.',
+      es: 'Parámetros registrados. Nos pondremos en contacto.',
+      de: 'Parameter erfasst. Wir melden uns.'
+    },
+    estTimelineLabel: { en: 'Est. Timeline', es: 'Plazo Estimado', de: 'Geschätzte Dauer' },
+    estInvestmentLabel: { en: 'Est. Investment', es: 'Inversión Estimada', de: 'Geschätztes Budget' }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'en';
+  let t = (obj) => obj[currentLang] || obj.en;
+
+  function applyTranslations() {
+    document.documentElement.lang = currentLang;
+    document.title = translations.title[currentLang];
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[key] && translations[key][currentLang]) {
+        el.innerHTML = translations[key][currentLang];
+      }
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (translations[key] && translations[key][currentLang]) {
+        el.placeholder = translations[key][currentLang];
+      }
+    });
+
+    // Keep estimate labels translated even after re-render
+    const tlLabel = document.querySelector('#scopeEstimate .estimate-item:first-child .estimate-label');
+    const invLabel = document.querySelector('#scopeEstimate .estimate-item:last-child .estimate-label');
+    if (tlLabel) tlLabel.textContent = t(intakeStrings.estTimelineLabel);
+    if (invLabel) invLabel.textContent = t(intakeStrings.estInvestmentLabel);
+  }
+
+  function setLang(lang, btn) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    applyTranslations();
+  }
+
+  // Restore saved language + highlight correct button on load
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim().toLowerCase() === currentLang);
+  });
+  applyTranslations();
+
+  // 4. Decrypt / Scramble Text Effect — only for plain-text elements
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+  document.querySelectorAll('[data-scramble]').forEach(el => {
+    if (!el.innerText || el.querySelector('br')) return; // skip elements containing HTML
+    const originalText = el.innerText;
+
+    el.addEventListener('mouseenter', () => {
+      if (reducedMotion) return;
+      let iteration = 0;
+      clearInterval(el.dataset.interval);
+
+      el.dataset.interval = setInterval(() => {
+        el.innerText = originalText.split("").map((letter, index) => {
+          if (index < iteration) return originalText[index];
+          return letters[Math.floor(Math.random() * letters.length)];
+        }).join("");
+
+        if (iteration >= originalText.length) clearInterval(el.dataset.interval);
+        iteration += 1 / 2;
+      }, 20);
+    });
+  });
+
+  // 5. Conversational Intake Flow — with persistence of answers + mailto handoff
+  let step = 1;
+  const collected = { scope: '', timeline: '', email: '' };
+  const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+  function selectPill(btn) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('intakeInputField').value = btn.innerText;
+
+    // Indicator logic
+    const indicator = document.getElementById('pillIndicator');
+    if (indicator) {
+      indicator.style.left = `${btn.offsetLeft}px`;
+      indicator.style.width = `${btn.offsetWidth}px`;
+      indicator.classList.add('visible');
+    }
+
+    // Estimate logic
+    const estimatePanel = document.getElementById('scopeEstimate');
+    const estTimeline = document.getElementById('estTimeline');
+    const estInvestment = document.getElementById('estInvestment');
+    const scope = btn.dataset.scope;
+
+    if (estimatePanel && scope) {
+      const units = { build: ['6–10', '4,000–8,000'], revamp: ['3–5', '2,000–4,500'], optimize: ['2–3', '1,500–3,000'] }[scope];
+      estTimeline.innerHTML = `${units[0]} ${currentLang === 'es' ? 'semanas' : currentLang === 'de' ? 'Wochen' : 'weeks'}`;
+      estInvestment.innerHTML = `€${units[1]}`;
+      estimatePanel.classList.add('visible');
+
+      // Auto-update the mailto link when scope chosen
+      updateMailtoLink(btn.innerText.trim());
+    }
+  }
+
+  function submitIntake() {
+    const input = document.getElementById('intakeInputField');
+    input.classList.remove('state-error');
+    const val = input.value.trim();
+
+    if (step === 1) {
+      if (!val) { input.classList.add('state-error'); return; }
+      collected.scope = val;
+      renderTimelineStep();
+      step = 2;
+
+    } else if (step === 2) {
+      if (!val) { input.classList.add('state-error'); return; }
+      collected.timeline = val;
+      renderEmailStep();
+      step = 3;
+
+    } else if (step === 3) {
+      if (!EMAIL_RE.test(val)) {
+        input.classList.add('state-error');
+        alert(t(intakeStrings.invalidEmail));
+        return;
+      }
+      collected.email = val;
+
+      // Actually deliver the brief via mailto
+      const subject = encodeURIComponent(`Project Brief — ${collected.scope}`);
+      const body = encodeURIComponent(
+        `Scope: ${collected.scope}\nTimeline: ${collected.timeline}\nContact email: ${collected.email}\n\n— Sent from aura website`
+      );
+      window.location.href = `mailto:aura.agency.vigo2026@gmail.com?subject=${subject}&body=${body}`;
+
+      document.getElementById('intakePhase').textContent = currentLang === 'es' ? 'Completado' : currentLang === 'de' ? 'Abgeschlossen' : 'Complete';
+      document.getElementById('intakeHeading').textContent = t(intakeStrings.done);
+      document.getElementById('pillGroup').style.display = 'none';
+      document.querySelector('.intake-input-wrapper').style.display = 'none';
+    }
+  }
+
+  function renderTimelineStep() {
+    document.getElementById('intakePhase').textContent = t(intakeStrings.phase2);
+    document.getElementById('intakeHeading').textContent = t(intakeStrings.heading2);
+    document.getElementById('pillGroup').innerHTML =
+      t(intakeStrings.timelinePills).map(p =>
+        `<button class="pill" onclick="selectPill(this)">${p}</button>`).join('');
+    const input = document.getElementById('intakeInputField');
+    input.value = '';
+    input.placeholder = t(intakeStrings.placeholder2);
+  }
+
+  function renderEmailStep() {
+    document.getElementById('intakePhase').textContent = t(intakeStrings.phase3);
+    document.getElementById('intakeHeading').textContent = t(intakeStrings.heading3);
+    document.getElementById('pillGroup').innerHTML = '';
+    document.getElementById('scopeEstimate').classList.remove('visible');
+    const input = document.getElementById('intakeInputField');
+    input.value = '';
+    input.placeholder = t(intakeStrings.emailPlaceholder);
+    input.type = 'email';
+  }
+
+  document.getElementById('intakeInputField').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') submitIntake();
+  });
+
+  function updateMailtoLink(scope) {
+    const subject = encodeURIComponent(`Project Inquiry: ${scope}`);
+    const body = encodeURIComponent(
+      `Hi Oscar,\n\nI am looking to start a project under the "${scope}" scope. Let's discuss requirements and timeline.\n\nBest,`
+    );
+    const contactSectionLink = document.querySelector('.footer-contact-section a[href^="mailto:"]');
+    if (contactSectionLink) contactSectionLink.href = `mailto:AURA.AGENCY.VIGO2026@GMAIL.COM?subject=${subject}&body=${body}`;
+  }
+
+  // ─── SKIPER UI INTEGRATIONS ───
+
+  // Velocity-aware Marquee
+  if (!reducedMotion) {
     let lastScrollY = window.scrollY;
     const marqueeContainer = document.getElementById('velocityMarquee');
     if (marqueeContainer) {
       window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        const delta = Math.abs(currentScrollY - lastScrollY);
-        lastScrollY = currentScrollY;
-        
-        let speed = 25 - (delta * 0.4);
-        if (speed < 8) speed = 8;
-        if (speed > 25) speed = 25;
-        
+        const delta = Math.abs(window.scrollY - lastScrollY);
+        lastScrollY = window.scrollY;
+
+        let speed = Math.min(25, Math.max(8, 25 - (delta * 0.4)));
         marqueeContainer.style.setProperty('--marquee-speed', `${speed}s`);
-        
+
         clearTimeout(marqueeContainer.scrollTimeout);
         marqueeContainer.scrollTimeout = setTimeout(() => {
           marqueeContainer.style.setProperty('--marquee-speed', '25s');
         }, 150);
       });
     }
+  }
 
-    // Magnetic CTA Buttons
-    const magneticBtns = document.querySelectorAll('.magnetic-btn');
-    magneticBtns.forEach(btn => {
+  // Magnetic CTA Buttons
+  if (finePointer && !reducedMotion) {
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
       btn.addEventListener('mousemove', (e) => {
         const rect = btn.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        const distanceX = e.clientX - centerX;
-        const distanceY = e.clientY - centerY;
-        
+        const distanceX = e.clientX - (rect.left + rect.width / 2);
+        const distanceY = e.clientY - (rect.top + rect.height / 2);
         btn.style.transform = `translate(${distanceX * 0.3}px, ${distanceY * 0.3}px)`;
       });
-      
+
       btn.addEventListener('mouseleave', () => {
         btn.style.transform = 'translate(0px, 0px)';
       });
-      
-      btn.addEventListener('mousedown', (e) => {
+
+      btn.addEventListener('mousedown', () => {
         const ripple = btn.querySelector('.ripple-effect');
         if (ripple) {
           ripple.classList.remove('active');
-          void ripple.offsetWidth; // trigger reflow
+          void ripple.offsetWidth;
           ripple.classList.add('active');
         }
       });
     });
+  }
 
-    // Floating Dock Panel
-    const dockExpandTrigger = document.getElementById('dockExpandTrigger');
-    const dockPanel = document.getElementById('dockPanel');
-    
-    if (dockExpandTrigger && dockPanel) {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > window.innerHeight * 0.5) {
-          dockExpandTrigger.classList.add('visible');
-        } else {
-          dockExpandTrigger.classList.remove('visible');
-          dockPanel.classList.remove('open');
-        }
-      });
-      
-      dockExpandTrigger.addEventListener('click', () => {
-        dockPanel.classList.toggle('open');
-      });
-    }
+  // Floating Dock Panel
+  const dockExpandTrigger = document.getElementById('dockExpandTrigger');
+  const dockPanel = document.getElementById('dockPanel');
 
-  </script>
+  if (dockExpandTrigger && dockPanel) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > window.innerHeight * 0.5) {
+        dockExpandTrigger.classList.add('visible');
+      } else {
+        dockExpandTrigger.classList.remove('visible');
+        dockPanel.classList.remove('open');
+      }
+    });
+
+    dockExpandTrigger.addEventListener('click', () => {
+      dockPanel.classList.toggle('open');
+    });
+  }
+</script>
 </body>
 </html>
