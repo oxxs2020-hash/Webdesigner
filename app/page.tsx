@@ -108,9 +108,9 @@ export default function Home() {
   // ─── Translations ───
   const translations = {
     "title": {
-      "en": "AURA AGENCY // WEB DESIGN",
-      "es": "AURA AGENCY // ARQUITECTURA WEB",
-      "de": "AURA AGENCY // WEB-ARCHITEKTUR"
+      "en": "AURA AGENCY // DIGITAL EXCELLENCE",
+      "es": "AURA AGENCY // EXCELENCIA DIGITAL",
+      "de": "AURA AGENCY // DIGITALE EXZELLENZ"
     },
     "hero_badge": {
       "en": "<span style='color: #39ff14; text-shadow: 0 0 5px rgba(57,255,20,0.5), 0 0 10px rgba(57,255,20,0.5);'>AURA AGENCY</span> <span style='color: #39ff14;'>/</span><span style='color: #1d4ed8;'>/</span> <span style='color: #1d4ed8; text-shadow: 0 0 5px rgba(29,78,216,0.5), 0 0 10px rgba(29,78,216,0.5);'>OSCAR OTERO ALVAREZ</span>",
@@ -118,115 +118,115 @@ export default function Home() {
       "de": "<span style='color: #39ff14; text-shadow: 0 0 5px rgba(57,255,20,0.5), 0 0 10px rgba(57,255,20,0.5);'>AURA AGENCY</span> <span style='color: #39ff14;'>/</span><span style='color: #1d4ed8;'>/</span> <span style='color: #1d4ed8; text-shadow: 0 0 5px rgba(29,78,216,0.5), 0 0 10px rgba(29,78,216,0.5);'>OSCAR OTERO ALVAREZ</span>"
     },
     "hero_title": {
-      "en": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>We create</span><br><span data-scramble>high design</span><br><span data-scramble>web pages</span></span>",
-      "es": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>Creamos</span><br><span data-scramble>páginas web de</span><br><span data-scramble>alto diseño</span></span>",
-      "de": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>Wir erstellen</span><br><span data-scramble>Webseiten mit</span><br><span data-scramble>hohem Design</span></span>"
+      "en": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>We engineer</span><br><span data-scramble>high-end</span><br><span data-scramble>digital</span><br><span data-scramble>experiences.</span></span>",
+      "es": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>Ingeniamos</span><br><span data-scramble>experiencias</span><br><span data-scramble>digitales</span><br><span data-scramble>de vanguardia.</span></span>",
+      "de": "<span class='text-ocean-waves' style='display: block; text-align: left;'><span data-scramble>Wir entwickeln</span><br><span data-scramble>zukunftsweisende</span><br><span data-scramble>digitale</span><br><span data-scramble>Erlebnisse.</span></span>"
     },
     "hero_desc": {
-      "en": "Crafting bespoke websites and upgrading existing platforms with beautiful layouts. Built for brands that demand memorable digital experiences.",
-      "es": "Diseñamos sitios web a medida y potenciamos plataformas existentes con ingeniería orientada a la conversión. Creado para marcas que exigen experiencias digitales de primer nivel.",
-      "de": "Wir entwickeln maßgeschneiderte Websites und transformieren bestehende Plattformen mit modernstem Design und hochkonvertierender Technologie."
+      "en": "Architecting bespoke digital platforms and elevating brand presence with immaculate design and cutting-edge performance. Engineered for visionary brands.",
+      "es": "Arquitecturizamos plataformas digitales a medida y elevamos la presencia de marca con un diseño inmaculado y un rendimiento de vanguardia. Diseñado para marcas visionarias.",
+      "de": "Wir entwerfen maßgeschneiderte digitale Plattformen und stärken die Markenpräsenz durch makelloses Design und modernste Leistung. Entwickelt für visionäre Marken."
     },
-    "hero_btn_1": { "en": "Start a Project", "es": "Iniciar Proyecto", "de": "Projekt starten" },
-    "hero_btn_2": { "en": "View Capabilities", "es": "Ver Servicios", "de": "Leistungen ansehen" },
+    "hero_btn_1": { "en": "Initiate Project", "es": "Iniciar Proyecto", "de": "Projekt initiieren" },
+    "hero_btn_2": { "en": "Explore Expertise", "es": "Explorar Experiencia", "de": "Expertise entdecken" },
     "nav_1": { "en": "Home", "es": "Inicio", "de": "Start" },
-    "nav_2": { "en": "About", "es": "Arquitecto", "de": "Architekt" },
-    "nav_3": { "en": "Services", "es": "Soluciones", "de": "Lösungen" },
-    "about_badge": { "en": "Lead Web Designer", "es": "Arquitecto Principal", "de": "Chefarchitekt" },
+    "nav_2": { "en": "Architect", "es": "Arquitecto", "de": "Architekt" },
+    "nav_3": { "en": "Capabilities", "es": "Capacidades", "de": "Fähigkeiten" },
+    "about_badge": { "en": "Principal Architect", "es": "Arquitecto Principal", "de": "Leitender Architekt" },
     "about_desc": {
-      "en": "Visionary designer and engineer behind Aura Agency. Specializing in highly interactive, futuristic web experiences tailored for creative brands and modern businesses.",
-      "es": "Diseñador e ingeniero con visión de futuro al frente de Aura Agency. Especializado en arquitecturas web altamente interactivas y de estética futurista.",
-      "de": "Visionärer Designer und Ingenieur hinter Aura Agency. Spezialisiert auf hochgradig interaktive, zukunftsweisende Web-Architekturen."
+      "en": "The visionary architect and creative technologist behind Aura Agency. Specializing in highly interactive, futuristic web experiences engineered for elite global brands.",
+      "es": "El arquitecto visionario y tecnólogo creativo detrás de Aura Agency. Especializado en experiencias web futuristas y altamente interactivas diseñadas para marcas globales de élite.",
+      "de": "Der visionäre Architekt und kreative Technologe hinter Aura Agency. Spezialisiert auf hochgradig interaktive, futuristische Web-Erlebnisse, entwickelt für globale Elite-Marken."
     },
-    "solutions_badge": { "en": "Our Services", "es": "Catálogo de Servicios", "de": "Leistungsübersicht" },
-    "solutions_title": { "en": "Designed with Passion", "es": "Ingeniería de Precisión", "de": "Mit höchster Präzision entwickelt" },
-    "card1_title": { "en": "Modern Web Builds", "es": "Desarrollo Web de Élite", "de": "Elite Web-Entwicklung" },
+    "solutions_badge": { "en": "Strategic Offerings", "es": "Ofertas Estratégicas", "de": "Strategische Angebote" },
+    "solutions_title": { "en": "Engineered for Excellence", "es": "Diseñado para la Excelencia", "de": "Für Exzellenz entwickelt" },
+    "card1_title": { "en": "Premium Web Architecture", "es": "Arquitectura Web Premium", "de": "Premium Web-Architektur" },
     "card1_desc": {
-      "en": "Building modern websites from the ground up with instant performance, clean code base, and striking futuristic visuals.",
-      "es": "Creamos sitios web modernos desde cero con rendimiento instantáneo, arquitectura limpia y una estética futurista impactante.",
-      "de": "Entwicklung moderner Websites von Grund auf, mit herausragender Performance und beeindruckender Ästhetik."
+      "en": "Architecting next-generation websites from the ground up, characterized by instantaneous performance, flawless code, and striking futuristic aesthetics.",
+      "es": "Diseñando sitios web de próxima generación desde cero, caracterizados por un rendimiento instantáneo, un código impecable y una estética futurista sorprendente.",
+      "de": "Entwicklung von Websites der nächsten Generation von Grund auf, gekennzeichnet durch sofortige Leistung, makellosen Code und beeindruckende futuristische Ästhetik."
     },
-    "card1_tag2": { "en": "NEXT-GEN STACK →", "es": "TECNOLOGÍA DE ÚLTIMA GENERACIÓN →", "de": "NEXT-GEN STACK →" },
-    "card2_title": { "en": "Next-Level Revamps", "es": "Rediseños de Alto Nivel", "de": "Premium Relaunches" },
+    "card1_tag2": { "en": "NEXT-GEN STACK →", "es": "TECNOLOGÍA DE VANGUARDIA →", "de": "NEXT-GEN STACK →" },
+    "card2_title": { "en": "Elite Digital Transformation", "es": "Transformación Digital de Élite", "de": "Elite Digitale Transformation" },
     "card2_desc": {
-      "en": "Upgrading your current website with fluid micro-interactions, modern responsive layouts, and cutting-edge design techniques.",
-      "es": "Transformamos su sitio web actual con microinteracciones fluidas, diseños adaptables y técnicas de vanguardia.",
-      "de": "Aufwertung Ihrer bestehenden Website mit flüssigen Mikro-Interaktionen und modernen responsiven Layouts."
+      "en": "Elevating your existing digital presence with fluid micro-interactions, sophisticated responsive layouts, and state-of-the-art design methodologies.",
+      "es": "Elevando su presencia digital existente con microinteracciones fluidas, diseños sofisticados adaptables y metodologías de diseño de vanguardia.",
+      "de": "Verbesserung Ihrer bestehenden digitalen Präsenz mit fließenden Mikro-Interaktionen, anspruchsvollen responsiven Layouts und modernsten Designmethoden."
     },
     "card2_tag2": { "en": "MODERN UPGRADES →", "es": "ACTUALIZACIONES MODERNAS →", "de": "MODERNE UPGRADES →" },
-    "card3_title": { "en": "Conversion & Performance", "es": "Conversión y Rendimiento", "de": "Conversion & Performance" },
+    "card3_title": { "en": "Conversion Optimization", "es": "Optimización de Conversión", "de": "Conversion-Optimierung" },
     "card3_desc": {
-      "en": "Re-engineering user interfaces and optimizing performance metrics to seamlessly turn visitors into loyal clients.",
-      "es": "Rediseño integral de interfaces y optimización de métricas para convertir visitantes en clientes fieles.",
-      "de": "Neustrukturierung von Benutzeroberflächen, um Besucher nahtlos in treue Kunden zu verwandeln."
+      "en": "Strategic re-engineering of user interfaces and exhaustive optimization of performance metrics to effortlessly convert visitors into loyal advocates.",
+      "es": "Reingeniería estratégica de interfaces de usuario y optimización exhaustiva de métricas de rendimiento para convertir visitantes en defensores leales sin esfuerzo.",
+      "de": "Strategische Neugestaltung von Benutzeroberflächen und umfassende Optimierung von Leistungskennzahlen, um Besucher mühelos in treue Fürsprecher zu verwandeln."
     },
     "card3_tag2": { "en": "HIGH CONVERSION →", "es": "ALTA CONVERSIÓN →", "de": "HOHE CONVERSION →" },
     "intake_phase": { "en": "Phase 01 // Configuration", "es": "Fase 01 // Configuración", "de": "Phase 01 // Konfiguration" },
-    "intake_heading": { "en": "Select your project scope:", "es": "Seleccione el alcance de su proyecto:", "de": "Wählen Sie den Projektumfang:" },
-    "pill_1": { "en": "New Website Build", "es": "Crear Sitio Web Nuevo", "de": "Neue Website erstellen" },
-    "pill_2": { "en": "Website Upgrade / Revamp", "es": "Rediseño / Renovación Web", "de": "Website Upgrade / Relaunch" },
-    "pill_3": { "en": "Performance Optimization", "es": "Optimización de Rendimiento", "de": "Performance-Optimierung" },
+    "intake_heading": { "en": "Define project scope:", "es": "Definir alcance del proyecto:", "de": "Projektumfang definieren:" },
+    "pill_1": { "en": "Bespoke Website Build", "es": "Creación de Sitio Web a Medida", "de": "Maßgeschneiderte Website-Erstellung" },
+    "pill_2": { "en": "Digital Platform Revamp", "es": "Renovación de Plataforma Digital", "de": "Überarbeitung der digitalen Plattform" },
+    "pill_3": { "en": "Performance Engineering", "es": "Ingeniería de Rendimiento", "de": "Performance Engineering" },
     "input_placeholder": {
-      "en": "Type or select an option above...",
-      "es": "Escriba o seleccione una opción...",
-      "de": "Tippen oder wählen Sie eine Option aus..."
+      "en": "Input or select a parameter...",
+      "es": "Ingrese o seleccione un parámetro...",
+      "de": "Parameter eingeben oder auswählen..."
     },
     "contact_bio": {
-      "en": "Designing & engineering high-performance web platforms for creative brands. Based in Vigo, Spain — available worldwide.",
-      "es": "Diseño e ingeniería de plataformas web de alto rendimiento para marcas de élite. Con base en Vigo, España — disponible mundialmente.",
-      "de": "Design & Entwicklung hochleistungsfähiger Web-Plattformen für Elite-Marken. Standort Vigo, Spanien — weltweit verfügbar."
+      "en": "Architecting & engineering high-performance digital platforms for visionary brands. Based in Vigo, Spain — executing globally.",
+      "es": "Arquitecturizando e ingeniando plataformas digitales de alto rendimiento para marcas visionarias. Con sede en Vigo, España — ejecutando a nivel mundial.",
+      "de": "Wir entwerfen und entwickeln hochleistungsfähige digitale Plattformen für visionäre Marken. Mit Sitz in Vigo, Spanien – weltweit tätig."
     }
   };
 
   // NEW: multi-language strings for the dynamic intake flow
   const intakeStrings = {
     phase2: {
-      en: 'Phase 02 // Timeline',
-      es: 'Fase 02 // Cronograma',
-      de: 'Phase 02 // Zeitplan'
+      en: 'Phase 02 // Timeline Projection',
+      es: 'Fase 02 // Proyección del Cronograma',
+      de: 'Phase 02 // Zeitplanprojektion'
     },
     heading2: {
-      en: 'Target Launch Window:',
-      es: 'Ventana de lanzamiento:',
-      de: 'Geplanter Launch-Zeitraum:'
+      en: 'Target Deployment Window:',
+      es: 'Ventana de Despliegue Objetivo:',
+      de: 'Geplantes Einsatzfenster:'
     },
     timelinePills: {
-      en: ['Under 30 Days', 'Next Quarter', 'Flexible'],
-      es: ['Menos de 30 Días', 'Próximo Trimestre', 'Flexible'],
-      de: ['Unter 30 Tagen', 'Nächstes Quartal', 'Flexibel']
+      en: ['Under 30 Days', 'Next Quarter', 'Flexible Schedule'],
+      es: ['Menos de 30 Días', 'Próximo Trimestre', 'Calendario Flexible'],
+      de: ['Unter 30 Tagen', 'Nächstes Quartal', 'Flexibler Zeitplan']
     },
     placeholder2: {
-      en: 'Select option or write timeline...',
-      es: 'Seleccione una opción o escriba el cronograma...',
-      de: 'Option wählen oder Zeitplan eingeben...'
+      en: 'Select parameter or specify timeline...',
+      es: 'Seleccione parámetro o especifique cronograma...',
+      de: 'Parameter wählen oder Zeitplan angeben...'
     },
     phase3: {
-      en: 'Phase 03 // Handshake',
-      es: 'Fase 03 // Contacto',
-      de: 'Phase 03 // Kontakt'
+      en: 'Phase 03 // Initiation',
+      es: 'Fase 03 // Iniciación',
+      de: 'Phase 03 // Initiierung'
     },
     heading3: {
-      en: 'Forwarding Address:',
-      es: 'Dirección de contacto:',
-      de: 'Kontaktadresse:'
+      en: 'Primary Contact Point:',
+      es: 'Punto de Contacto Principal:',
+      de: 'Primärer Ansprechpartner:'
     },
     emailPlaceholder: {
-      en: 'your.email@company.com',
-      es: 'tu.email@empresa.com',
-      de: 'ihre.email@firma.de'
+      en: 'executive@company.com',
+      es: 'ejecutivo@empresa.com',
+      de: 'vorstand@firma.de'
     },
     invalidEmail: {
-      en: 'Please enter a valid email address.',
-      es: 'Por favor, introduzca un correo válido.',
-      de: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.'
+      en: 'Please provide a valid corporate email address.',
+      es: 'Por favor, proporcione un correo corporativo válido.',
+      de: 'Bitte geben Sie eine gültige geschäftliche E-Mail-Adresse ein.'
     },
     done: {
-      en: 'Parameters Logged. We will be in touch.',
-      es: 'Parámetros registrados. Nos pondremos en contacto.',
-      de: 'Parameter erfasst. Wir melden uns.'
+      en: 'Brief Registered. We will initiate contact shortly.',
+      es: 'Briefing Registrado. Iniciaremos contacto en breve.',
+      de: 'Briefing Registriert. Wir werden in Kürze Kontakt aufnehmen.'
     },
-    estTimelineLabel: { en: 'Est. Timeline', es: 'Plazo Estimado', de: 'Geschätzte Dauer' },
-    estInvestmentLabel: { en: 'Est. Investment', es: 'Inversión Estimada', de: 'Geschätztes Budget' }
+    estTimelineLabel: { en: 'Est. Timeline', es: 'Cronograma Est.', de: 'Geschätzte Zeit' },
+    estInvestmentLabel: { en: 'Est. Investment', es: 'Inversión Est.', de: 'Geschätztes Budget' }
   };
 
   let currentLang = localStorage.getItem('lang') || 'en';
@@ -728,11 +728,11 @@ export default function Home() {
     <div className="hud-glow g4"></div>
     <div className="hud-scanline"></div>
   </div>
-  <div style={{position: "fixed", top: "0", left: "0", padding: "1.5rem 2rem", zIndex: "100"}}>
+  <div style={{position: "fixed", top: "0", left: "0", padding: "1.5rem 2rem", zIndex: "1000"}}>
       <div className="lang-switcher">
-        <button className="lang-btn active" data-onclick="setLang('en')">EN</button>
-        <button className="lang-btn" data-onclick="setLang('es')">ES</button>
-        <button className="lang-btn" data-onclick="setLang('de')">DE</button>
+        <button className="lang-btn active" onClick={(e) => (window as any).setLang('en', e.currentTarget)}>EN</button>
+        <button className="lang-btn" onClick={(e) => (window as any).setLang('es', e.currentTarget)}>ES</button>
+        <button className="lang-btn" onClick={(e) => (window as any).setLang('de', e.currentTarget)}>DE</button>
       </div>
   </div>
   <div className="hero-title-container">
